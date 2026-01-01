@@ -1,0 +1,6 @@
+@HaulPointsAPI_HostAddress = http://localhost:5223
+
+GET {{HaulPointsAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
