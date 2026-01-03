@@ -1,5 +1,7 @@
 using HaulPointsAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using HaulPointsAPI.Services;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,10 @@ builder.Services.AddSwaggerGen();
 
 // Add controllers
 builder.Services.AddControllers();
+
+// Register UserService for dependency injection
+builder.Services.AddScoped<UserService>();
+
 
 // Configure CORS to allow requests from React app
 builder.Services.AddCors(options =>
@@ -35,6 +41,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Register the DbContext with the service container
 builder.Services.AddDbContext<HaulPointsDbContext>(options =>
     options.UseSqlite(connectionString));
+
+// Register PasswordHasher for User model
+builder.Services.AddScoped<IPasswordHasher<HaulPointsAPI.Models.User>, PasswordHasher<HaulPointsAPI.Models.User>>();
 
 // Build the app
 var app = builder.Build();
