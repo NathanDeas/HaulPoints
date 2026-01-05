@@ -50,10 +50,10 @@ namespace HaulPointsAPI.Controllers {
         }
 
         // Login endpoint
-        [HttpGet("login")]
-        public async Task<IActionResult> Login(string username, string password)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserDTO dto)
         {
-            var result = await _service.LoginService(username, password);
+            var result = await _service.LoginService(dto.Username, dto.Password);
             if (result.response == UserService.LoginResult.Success.ToString())
             {
                 return Ok(result);

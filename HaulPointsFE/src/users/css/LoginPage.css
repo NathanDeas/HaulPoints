@@ -1,0 +1,6 @@
+.login-container {
+    width: 100%;
+    border: solid green;
+    position: absolute;
+    height: 50vh;
+}
