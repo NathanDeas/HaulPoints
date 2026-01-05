@@ -2,43 +2,70 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HaulPointsAPI.Data;
 using HaulPointsAPI.Models;
+using HaulPointsAPI.Services;
+using System;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace HaulPointsAPI.Controllers {
     [ApiController]
-    [route("api/[controller]")]
+    [Route("api/[controller]")]
 
     public class UsersController : ControllerBase {
-        private readonly HaulPointsDbContext _context;
-        public UsersController(HaulPointsDbContext context)
+
+        private readonly UserService _service;
+        private readonly HaulPointsDbContext _context; 
+
+        public UsersController(UserService service, HaulPointsDbContext context)
         {
+            _service = service;
             _context = context;
         }
-        // GET: api/Users Get all users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
+
+        // Get all users endpoint
+        //just for testing purposes
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getusers")]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Users>> GetUser([FromRoute] int id)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterUserDTO rUser)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var user = await _service.RegisterService(rUser);
+            if (user == UserService.RegistrationResult.Success)
             {
-                return NotFound();
+                return Ok("User registered successfully");
             }
-            return user;
+            else if (user == UserService.RegistrationResult.UsernameExists)
+            {
+                return Conflict("Username already exists");
+            }
+            else // EmailExists
+            {
+                return Conflict("Email already exists");
+            }
         }
 
-        // POST: api/Users Create a new user
-        [HttpPost]
-        public async Task<ActionResult<Users>> CreateUser(Users user)
+        // Login endpoint
+        [HttpGet("login")]
+        public async Task<IActionResult> Login(string username, string password)
         {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetUsers), new { id = user.Id }, user);
+            var result = await _service.LoginService(username, password);
+            if (result.response == UserService.LoginResult.Success.ToString())
+            {
+                return Ok(result);
+            }
+            else if (result.response == UserService.LoginResult.UserNotFound.ToString())
+            {
+                return NotFound("User not found");
+            }
+            else // InvalidPassword
+            {
+                return Unauthorized("Invalid password");
+            }
         }
     }
 }
