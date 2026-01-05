@@ -2,6 +2,8 @@ using HaulPointsAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using HaulPointsAPI.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 /// Add OpenAPI/Swagger services
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthorization();
 
 
 // Add controllers
@@ -31,6 +35,21 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
+});
+// Configure JWT Authentication
+// Add Authentication services
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options => {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+        };
 });
 
 
@@ -60,7 +79,12 @@ if (app.Environment.IsDevelopment())
 // Use CORS
 app.UseCors("AllowReactApp");
 // app.UseHttpsRedirection();
+
+
+// Use Authentication and Authorization
+app.UseAuthentication();
 app.UseAuthorization();
+
 // Map controllers
 app.MapControllers();
 // Run the application

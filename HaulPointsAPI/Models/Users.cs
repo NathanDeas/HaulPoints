@@ -16,6 +16,12 @@ namespace HaulPointsAPI.Models
         public string Password { get; set; } = string.Empty;
     }
 
+    public class userLoginResponseDTO
+    {
+        public string Token { get; set; } = string.Empty;
+        public string response { get; set; } = string.Empty;
+    }
+
     [Table("Users")]
     public class User
     {

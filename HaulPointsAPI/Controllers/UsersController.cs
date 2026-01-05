@@ -4,6 +4,7 @@ using HaulPointsAPI.Data;
 using HaulPointsAPI.Models;
 using HaulPointsAPI.Services;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace HaulPointsAPI.Controllers {
@@ -23,6 +24,7 @@ namespace HaulPointsAPI.Controllers {
 
         // Get all users endpoint
         //just for testing purposes
+        [Authorize(Roles = "Admin")]
         [HttpGet("getusers")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -49,14 +51,14 @@ namespace HaulPointsAPI.Controllers {
 
         // Login endpoint
         [HttpGet("login")]
-        public async Task<ActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
             var result = await _service.LoginService(username, password);
-            if (result == UserService.LoginResult.Success)
+            if (result.response == UserService.LoginResult.Success.ToString())
             {
-                return Ok("Login successful");
+                return Ok(result);
             }
-            else if (result == UserService.LoginResult.UserNotFound)
+            else if (result.response == UserService.LoginResult.UserNotFound.ToString())
             {
                 return NotFound("User not found");
             }

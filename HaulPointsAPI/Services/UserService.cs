@@ -2,6 +2,11 @@ using HaulPointsAPI.Data;
 using HaulPointsAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+// using Microsoft.AspNetCore.Authorization; 
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 
 
 namespace HaulPointsAPI.Services
@@ -12,6 +17,8 @@ namespace HaulPointsAPI.Services
         private readonly HaulPointsDbContext _context;
         // Password hasher for secure password storage
         private readonly IPasswordHasher<User> _passwordHasher;
+
+        private readonly IConfiguration _configuration;
 
         // Result enums for registration and login outcomes
         public enum RegistrationResult
@@ -30,8 +37,10 @@ namespace HaulPointsAPI.Services
         }
 
         // Constructor to initialize the service with database context and password hasher
-        public UserService(HaulPointsDbContext context, IPasswordHasher<User> passwordHasher)
+        public UserService(HaulPointsDbContext context, IPasswordHasher<User> passwordHasher, IConfiguration configuration)
         {
+            
+            _configuration = configuration;
             _context = context;
             _passwordHasher = passwordHasher;
         }
@@ -68,24 +77,58 @@ namespace HaulPointsAPI.Services
             return RegistrationResult.Success;
         }
         // Method to authenticate a user during login
-        public async Task<LoginResult> LoginService(string username, string password)
+        public async Task<userLoginResponseDTO> LoginService(string username, string password)
         { 
 
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username.ToLower());
-            if (user == null)
+
+            if (user == null) // User not found
             {
-                return LoginResult.UserNotFound;
+                return new userLoginResponseDTO
+                {
+                    Token = string.Empty,
+                    response = LoginResult.UserNotFound.ToString()
+                };
             }
             // Verify the provided password against the stored hash
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
             
-            if (result == PasswordVerificationResult.Success)
+            if (result == PasswordVerificationResult.Success) // Password is correct
             {
-                return LoginResult.Success;
+                // Generate JWT token upon successful login
+                var claims = new[]         
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Username),
+                    new Claim(ClaimTypes.Role, user.Role)
+                };
+                var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+                var signCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+                // Create the JWT token
+                var token = new JwtSecurityToken(
+                    issuer : "http://localhost:5223",
+                    audience : "HaulPointsAPI",
+                    claims : claims,
+                    expires : DateTime.UtcNow.AddMinutes(15),
+                    signingCredentials : signCredentials
+                );
+                // Serialize the token to a string
+                var userToken = new JwtSecurityTokenHandler().WriteToken(token); 
+                // Return the token in the response DTO
+                return new userLoginResponseDTO
+                {
+                    Token = userToken,
+                    response = LoginResult.Success.ToString()
+                };
             }
-            else
+
+            else // Invalid password
             {
-                return LoginResult.InvalidPassword;
+                return new userLoginResponseDTO
+                {
+                    Token = string.Empty,
+                    response = LoginResult.InvalidPassword.ToString()
+                };
             }
         }
     }
