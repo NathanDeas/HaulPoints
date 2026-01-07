@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Homepage from "./Homepage.jsx"
+import Homepage from "./Homepage.jsx";
 import Login from './users/Pages/LoginPage.jsx';
 import Register from './users/Pages/RegisterPage.jsx';
-import "./app.css"
+import Ddashboard from './Driver/Pages/DriverPage.jsx';
+import Adashboard from './Admin/Pages/AdminPage.jsx'
+import "./app.css";
 
 function App() {
 
@@ -13,6 +15,8 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/ddashboard" element={<Ddashboard />} />
+        <Route path="/adashboard" element={<Adashboard />} />
       </Routes>
     </BrowserRouter>
     </div>

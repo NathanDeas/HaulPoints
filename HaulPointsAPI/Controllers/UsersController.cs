@@ -60,7 +60,7 @@ namespace HaulPointsAPI.Controllers {
             }
             else if (result.response == UserService.LoginResult.UserNotFound.ToString())
             {
-                return NotFound("User not found");
+                return NotFound("Username not found");
             }
             else // InvalidPassword
             {
