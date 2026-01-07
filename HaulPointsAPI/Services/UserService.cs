@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using System;
 
 
 namespace HaulPointsAPI.Services
@@ -79,7 +80,6 @@ namespace HaulPointsAPI.Services
         // Method to authenticate a user during login
         public async Task<userLoginResponseDTO> LoginService(string username, string password)
         { 
-
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username.ToLower());
 
             if (user == null) // User not found

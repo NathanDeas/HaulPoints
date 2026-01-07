@@ -1,6 +1,50 @@
-.login-container {
+.loginpage-container {
     width: 100%;
-    border: solid green;
+    height: 100%;
+    display: flex;
+    height: 100vh;
+}
+.image-left-side {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    overflow: hidden;
+}
+.image-left-side .logo {
+    position: fixed;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30vw;
+    top: 10vh;
+    background-color: hsla(0, 0%, 0%, 0.5);
+
+
+}
+
+.image-left-side .background-truck {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.form-right-side
+{
+    flex-grow: 1;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    background-color: hsl(0, 0%, 95%);
+}
+
+.home-link {
     position: absolute;
-    height: 50vh;
+    top: 10px;
+    left: 61%;
+    font-size: 1.5em;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 20px;
+    background-color: hsl(29, 90%, 48%);
+    color: white;
 }
