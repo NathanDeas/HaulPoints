@@ -5,3 +5,8 @@ a {
 * {
     font-family: "Roboto", sans-serif;
 }
+input {
+  border: none;
+  outline: none;
+  background: none;
+}

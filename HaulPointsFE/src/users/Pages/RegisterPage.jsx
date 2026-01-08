@@ -1,8 +1,13 @@
+import { NavLink } from "react-router-dom";
+import AuthLayout from "../components/AuthLayout.jsx";
+import RegisterForm from "../components/RegisterForm.jsx";
+
+
 function RegisterPage () {
     return (
-        <div className="register-container">
-            Register Page
-        </div>
+        <AuthLayout>
+            <RegisterForm />
+        </AuthLayout>
     );
 }
 

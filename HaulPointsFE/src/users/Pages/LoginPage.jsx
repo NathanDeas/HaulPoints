@@ -1,6 +1,6 @@
-import "../css/LoginPage.css"
 import { NavLink, useNavigate } from 'react-router-dom';
 import LoginForm from "../components/LoginForm.jsx";
+import AuthLayout from "../components/AuthLayout.jsx";
 
 
 function LoginPage() {
@@ -31,14 +31,9 @@ function LoginPage() {
     }
   }
   return (
-    <div className="loginpage-container">
-      <NavLink to="/" className="home-link">&lt;  Home</NavLink>
-      <div className="image-left-side">
-        <img className="logo" src="/HaulPointsLogo-BlackText.png"></img>
-        <img className="background-truck" src="/Loginregister-image-left.jpg"></img>
-      </div>
-      <div className="form-right-side"><LoginForm userInfo={handleToken}/></div>
-    </div>
+    <AuthLayout>
+      <LoginForm userInfo={handleToken}/>
+    </AuthLayout>
   );
 }
 
