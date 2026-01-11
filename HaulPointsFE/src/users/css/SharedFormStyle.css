@@ -1,3 +1,4 @@
+/* Shared styles for user forms(Login and Register) */
 .form-container {
     width: 80%;
     height: fit-content;
@@ -25,7 +26,7 @@
     border: solid hsl(0, 0%, 70%) .5px;
 }
 .form-container form input:focus {
-    box-shadow: inset 5px 0px 0px hsl(29, 90%, 48%);;
+    box-shadow: inset 5px 0px 0px hsl(29, 90%, 48%);
 }
 .form-container .form-button {
     display: block;
@@ -36,6 +37,9 @@
     padding: 5px;
     background-color: hsl(29, 90%, 48%);
     color: white;
+}
+.form-container .form-button:hover {
+    background-color: hsl(29, 90%, 40%);
 }
 .form-container .form-button:hover {
     cursor: pointer;
@@ -91,5 +95,18 @@
     text-align: center;
 }
 .password-field .show-button:hover {
+    background-color: hsl(0, 0%, 90%);
+}
+.password-field .show-button:hover {
     cursor: pointer;
+}
+button .auth-load {
+    animation: spin 1s linear infinite;
+    border: solid hsl(0, 0%, 95%) 0px;
+    /* background-color: blue; */
+    border-radius: 50%;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }

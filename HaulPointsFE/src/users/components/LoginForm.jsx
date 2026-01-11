@@ -9,8 +9,9 @@ function LoginForm({userInfo}) {
     const [Message, setMessage] = useState("");
     const [UsernameErrorMessage, setUsernameErrorMessage] = useState([]);
     const [ViewPassword, setViewPassword] = useState(false);
+    const [LoginLoading, setLoginLoading] = useState(false);
 
-
+    // Validates username for spaces and special characters
     function verifyUsername(uName) {
         const errorArray = [];
         if(/\s/.test(uName)) {
@@ -21,30 +22,40 @@ function LoginForm({userInfo}) {
             errorArray.push("Allowed Special Character . _ -");
         }
         setUsernameErrorMessage(errorArray)
-        if (errorArray.length == 0) 
-        {
-            return
-        }
+        // Return true if no errors, false otherwise
+        return (errorArray.length == 0);
     }
+    // Simulates a delay for loading state demonstration, REMOVE IN PRODUCTION
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Handles login form submission
     const HandleLogin = async (e) => {
         e.preventDefault();
-        verifyUsername(Username)
+        if (!verifyUsername(Username)) {
+            return;
+        }
         localStorage.removeItem("token");
         const loginInfo = {
             username: Username,
             password: Password
         }
         try{
+            setLoginLoading(true)
             const response = await LoginUser(loginInfo);
+            await sleep(2000); // Simulate network delay for loading state demonstration, REMOVE IN PRODUCTION
             setMessage(response.response) 
             userInfo(response.token)
+            setLoginLoading(false);
         }   
 
-        catch(err) {
+        catch {
+            await sleep(2000); // Simulate network delay for loading state demonstration, REMOVE IN PRODUCTION
+            setLoginLoading(false);
             setMessage("Invalid username or password");
         }
     } 
-
     return (
         <div className="form-container">
             <h1>Sign In</h1>
@@ -56,17 +67,19 @@ function LoginForm({userInfo}) {
                     placeholder="Username" 
                     required
                 />
-
+                
                 <div className="validation-container">
                         {UsernameErrorMessage && (UsernameErrorMessage.map(errors => <p key={errors} className="error-list">- {errors}</p>))}
                 </div>
                 <div className="password-field">
                         <input value={Password} onChange={(e) => setPassword(e.target.value)} 
                             name="password" 
-                            type={ViewPassword ? "text" : "password"} 
+                            type={ViewPassword ? "text" : "password"} // Toggle between text and password type
                             placeholder="Password" 
                             required
                         />
+
+                {/* Toggle password visibility button */}
                 <button onClick={() => setViewPassword(!ViewPassword)} 
                     type="button" 
                     className="show-button"
@@ -90,7 +103,20 @@ function LoginForm({userInfo}) {
                     {Message && <p className="e-error">{Message}</p>}
                 </div>
 
-                <button className="form-button" type="submit" value="submit">Login</button>
+                <button className="form-button" type="submit" value="submit" disabled={LoginLoading}>
+                    {LoginLoading ? 
+                    <svg className="auth-load" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+                        <path 
+                            d="M13.5 8.5A.5.5 0 0 1 13 8c0-2.757-2.243-5-5-5S3 5.243 3 8a.5.5 0 0 1-1 0c0-3.309 2.691-6 6-6s6 2.691 6 6a.5.5 0 0 1-.5.5"
+                            stroke="hsl(0, 0%, 95%)"
+                            stroke-width="1.5"
+                            fill="none"
+                        />
+                    </svg>
+
+                    : 
+                    "Sign In"}
+                </button>
             </form>
 
             <div className="form-divider"><hr/><p>Don't have an account yet?</p><hr/></div>

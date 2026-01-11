@@ -5,6 +5,8 @@ import AuthLayout from "../components/AuthLayout.jsx";
 
 function LoginPage() {
   let navigate = useNavigate();
+
+  // Handles token storage and navigation based on user role
   const handleToken = (token) => {
     if (!token) {
       console.error("No token received");
@@ -12,6 +14,8 @@ function LoginPage() {
     }
     localStorage.setItem("token", token);
     let claims;
+
+    // Decode JWT token to extract claims
     try {
       claims = JSON.parse(atob(token.split('.')[1]));
     } catch {
@@ -19,7 +23,11 @@ function LoginPage() {
       navigate("/login");
       return;
     }
+
+    // Get user role from claims
     const role = claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+
+    // Navigate based on user role
     if (role == "Driver") {
       navigate("/ddashboard");
     }
@@ -31,7 +39,7 @@ function LoginPage() {
     }
   }
   return (
-    <AuthLayout>
+    <AuthLayout> 
       <LoginForm userInfo={handleToken}/>
     </AuthLayout>
   );
