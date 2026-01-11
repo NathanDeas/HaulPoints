@@ -1,0 +1,121 @@
+/* Shared styles for user forms(Login and Register) */
+.form-container {
+    width: 80%;
+    height: fit-content;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.form-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 300;
+}
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.form-container form input, .form-button {
+    font-size: 1.5em;
+}
+.form-container form input {
+    padding: 10px;
+    padding-left: 16px;
+    border: solid hsl(0, 0%, 70%) .5px;
+}
+.form-container form input:focus {
+    box-shadow: inset 5px 0px 0px hsl(29, 90%, 48%);
+}
+.form-container .form-button {
+    display: block;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+    background-color: hsl(29, 90%, 48%);
+    color: white;
+}
+.form-container .form-button:hover {
+    background-color: hsl(29, 90%, 40%);
+}
+.form-container .form-button:hover {
+    cursor: pointer;
+}
+.form-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5em;
+  font-weight: 300;
+}
+.form-divider hr {
+  flex: 1;
+  border: none;
+  border-top: 2px solid black;
+  height: 0;
+}
+
+.validation-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow:hidden;
+}
+.validation-container p {
+    background-color: hsla(0, 79%, 50%, 0.789);
+    color: white;
+    padding: 5px;
+    border: solid hsl(0, 73%, 58%) 3px;
+}
+.validation-container .error-list {
+    width: 50%;
+}
+.validation-container .e-error {
+    width: 100%;
+}
+
+.password-field {
+    display: flex;
+    flex-direction: row;
+}
+.form-container form .password-field input {
+    width: 90%;
+    border-right: none;
+    border-bottom-right-radius: none;
+    border-top-right-radius: none;
+
+}
+.password-field .show-button {
+    flex-grow: 1;
+    border: solid hsl(0, 0%, 70%) .5px;
+    border-left: none;
+    text-align: center;
+}
+.password-field .show-button:hover {
+    background-color: hsl(0, 0%, 90%);
+}
+.password-field .show-button:hover {
+    cursor: pointer;
+}
+button .auth-load {
+    animation: spin 1s linear infinite;
+    border: solid hsl(0, 0%, 95%) 0px;
+    /* background-color: blue; */
+    border-radius: 50%;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.form-container .form-button.form-button-secondary {
+    background-color: transparent;
+    border: solid hsl(29, 90%, 48%) 5px;
+    color: hsl(29, 90%, 48%);
+}
+.form-container .form-button.form-button-secondary:hover {
+    background-color: hsl(29, 90%, 48%);
+    color: hsl(0, 0%, 95%);
+}

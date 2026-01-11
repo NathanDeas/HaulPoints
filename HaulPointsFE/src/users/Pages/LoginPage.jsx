@@ -1,10 +1,12 @@
-import "../css/LoginPage.css"
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoginForm from "../components/LoginForm.jsx";
+import AuthLayout from "../components/AuthLayout.jsx";
 
 
 function LoginPage() {
   let navigate = useNavigate();
+
+  // Handles token storage and navigation based on user role
   const handleToken = (token) => {
     if (!token) {
       console.error("No token received");
@@ -12,6 +14,8 @@ function LoginPage() {
     }
     localStorage.setItem("token", token);
     let claims;
+
+    // Decode JWT token to extract claims
     try {
       claims = JSON.parse(atob(token.split('.')[1]));
     } catch {
@@ -19,7 +23,11 @@ function LoginPage() {
       navigate("/login");
       return;
     }
+
+    // Get user role from claims
     const role = claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+
+    // Navigate based on user role
     if (role == "Driver") {
       navigate("/ddashboard");
     }
@@ -31,14 +39,9 @@ function LoginPage() {
     }
   }
   return (
-    <div className="loginpage-container">
-      <NavLink to="/" className="home-link">&lt;  Home</NavLink>
-      <div className="image-left-side">
-        <img className="logo" src="/HaulPointsLogo-BlackText.png"></img>
-        <img className="background-truck" src="/Loginregister-image-left.jpg"></img>
-      </div>
-      <div className="form-right-side"><LoginForm userInfo={handleToken}/></div>
-    </div>
+    <AuthLayout> 
+      <LoginForm userInfo={handleToken}/>
+    </AuthLayout>
   );
 }
 

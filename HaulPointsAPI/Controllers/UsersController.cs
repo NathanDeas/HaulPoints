@@ -37,15 +37,15 @@ namespace HaulPointsAPI.Controllers {
             var user = await _service.RegisterService(rUser);
             if (user == UserService.RegistrationResult.Success)
             {
-                return Ok("User registered successfully");
+                return Ok(new {success = true, message = "Success! Redirecting to Login Page"} );
             }
             else if (user == UserService.RegistrationResult.UsernameExists)
             {
-                return Conflict("Username already exists");
+                return Ok(new {success = false, message = "Username Already Exists"});
             }
             else // EmailExists
             {
-                return Conflict("Email already exists");
+                return Ok(new {success = false, message = "Email already exists"});
             }
         }
 

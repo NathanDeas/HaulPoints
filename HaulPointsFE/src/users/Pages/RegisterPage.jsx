@@ -1,8 +1,18 @@
+import { useNavigate } from "react-router-dom";
+import AuthLayout from "../components/AuthLayout.jsx";
+import RegisterForm from "../components/RegisterForm.jsx";
+
+
 function RegisterPage () {
+    let navigate = useNavigate();
+    // Redirects to login page after successful registration
+    const handleRedirect = () => {
+        navigate("/login");
+    }
     return (
-        <div className="register-container">
-            Register Page
-        </div>
+        <AuthLayout>
+            <RegisterForm redirectToLogin = {handleRedirect} />
+        </AuthLayout>
     );
 }
 

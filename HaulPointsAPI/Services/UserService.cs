@@ -64,7 +64,7 @@ namespace HaulPointsAPI.Services
                 // Normalize username to lowercase
                 Username = rUser.Username.ToLower(),
                 Email = rUser.Email,
-                Role = "Driver",
+                Role = "Driver", // Default role
                 CreatedAt = DateTime.UtcNow
             };
             // Hash the password
