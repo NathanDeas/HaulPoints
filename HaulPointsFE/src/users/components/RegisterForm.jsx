@@ -1,11 +1,12 @@
 import { useState } from "react";
 import "../css/SharedFormStyle.css"
 import { NavLink } from 'react-router-dom';
+import { RegisterUser } from "../api/UsersApi";
 
 
 
 
-function RegisterForm () {
+function RegisterForm ({redirectToLogin}) {
         const [Username, setUsername] = useState("");
         const [Email, setEmail] = useState("");
         const [Password, setPassword] = useState("");
@@ -13,7 +14,9 @@ function RegisterForm () {
         const [PasswordErrorMessage, setPasswordErrorMessage] = useState([]);
         const [EmailErrorMessage, setEmailErrorMessage] = useState("");
         const [ViewPassword, setViewPassword] = useState(false);
-        const [LoginLoading, setLoginLoading] = useState(false);
+        const [Loading, setLoading] = useState(false);
+        const [Message, setMessage] = useState("");
+
 
         {/* Input validation Functions for Username, Email, and Password */}
         function verifyUsername(uName) {
@@ -33,18 +36,17 @@ function RegisterForm () {
                 errorArray.push("Cannot contain spaces")
             }
             setUsernameErrorMessage(errorArray)
-            if(errorArray.length == 0)
-            {
-                return;
-            }
+            return (errorArray.length == 0)
         }
         function verifyEmail(email) {
             if (!/^\S+@\S+\.\S+$/.test(email))
             {
                 setEmailErrorMessage("Please enter valid email address")
+                return false;
             }
             else {
                 setEmailErrorMessage("");
+                return true;
             }
         }
         function verifyPassword(pass) {
@@ -72,9 +74,8 @@ function RegisterForm () {
                 errorArray.push("At least one special character")
             }
             setPasswordErrorMessage(errorArray)
-            if(errorArray.length == 0) {
-                return;
-            }
+            return (errorArray.length == 0) 
+
         }
         // Simulates a delay for loading state demonstration, REMOVE IN PRODUCTION
         function sleep(ms) {
@@ -84,12 +85,37 @@ function RegisterForm () {
         {/* Handle form submission and trigger validation */}
         const  HandleLogin = async (e) => {
             e.preventDefault();
-            setLoginLoading(true);
+            setLoading(true);
             await sleep(2000);
-            verifyPassword(Password);
-            verifyEmail(Email);
-            verifyUsername(Username);
-            setLoginLoading(false);
+            const passwordResult = verifyPassword(Password);
+            const emailResult = verifyEmail(Email);
+            const usernameResult = verifyUsername(Username);
+            if (!passwordResult || !usernameResult || !emailResult)  {
+                setLoading(false)
+                return;
+            }
+
+            const registerInfo = {
+                username: Username,
+                password: Password,
+                email: Email
+            }
+            try {
+                setLoading(true)
+                const response = await RegisterUser(registerInfo)
+                setMessage(response.message)
+                // return if successful registration
+                // Otherwise user typed existing username/email
+                if (response.success){
+                    await sleep(2000); // Simulate network delay for loading state demonstration, REMOVE IN PRODUCTION
+                    redirectToLogin();
+                    
+                }
+                setLoading(false);
+            } catch { // Unexpected error
+                setMessage("ERROR: unable to complete request at this time")
+                setLoading(false);
+            }
         }
 
 
@@ -145,23 +171,26 @@ function RegisterForm () {
                 <div className="validation-container">
                     {PasswordErrorMessage && (PasswordErrorMessage.map(errors => <p key={errors} className="error-list">- {errors}</p>))}
                 </div>
+                <div className="validation-container">
+                    {Message && <p className="e-error">{Message}</p>}
+                </div>
 
-                <button className="form-button" type="submit" value="submit" disabled={LoginLoading}>
-                    {LoginLoading ? 
+                <button className="form-button" type="submit" value="submit" disabled={Loading}>
+                    {Loading ? 
                     <svg className="auth-load" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
                         <path 
                             d="M13.5 8.5A.5.5 0 0 1 13 8c0-2.757-2.243-5-5-5S3 5.243 3 8a.5.5 0 0 1-1 0c0-3.309 2.691-6 6-6s6 2.691 6 6a.5.5 0 0 1-.5.5"
                             stroke="hsl(0, 0%, 95%)"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             fill="none"
                         />
                     </svg>
 
                     : 
-                    "Sign In"}
+                    "Sign Up Now!"}
                 </button>
                 <div className="form-divider"><hr/><p>Already have an account?</p><hr/></div>
-                <NavLink className="form-button" to="/login">Login Here</NavLink>
+                <NavLink className="form-button form-button-secondary" to="/login">Login Here</NavLink>
             </form>
 
         </div>

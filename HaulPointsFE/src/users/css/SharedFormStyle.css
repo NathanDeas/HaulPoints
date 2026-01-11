@@ -110,3 +110,12 @@ button .auth-load {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+.form-container .form-button.form-button-secondary {
+    background-color: transparent;
+    border: solid hsl(29, 90%, 48%) 5px;
+    color: hsl(29, 90%, 48%);
+}
+.form-container .form-button.form-button-secondary:hover {
+    background-color: hsl(29, 90%, 48%);
+    color: hsl(0, 0%, 95%);
+}

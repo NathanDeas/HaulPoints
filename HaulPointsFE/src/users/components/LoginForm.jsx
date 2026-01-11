@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import { LoginUser } from "../api/UsersApi";
 import "../css/SharedFormStyle.css"
 import { NavLink } from 'react-router-dom';
@@ -9,7 +9,7 @@ function LoginForm({userInfo}) {
     const [Message, setMessage] = useState("");
     const [UsernameErrorMessage, setUsernameErrorMessage] = useState([]);
     const [ViewPassword, setViewPassword] = useState(false);
-    const [LoginLoading, setLoginLoading] = useState(false);
+    const [Loading, setLoading] = useState(false);
 
     // Validates username for spaces and special characters
     function verifyUsername(uName) {
@@ -33,26 +33,28 @@ function LoginForm({userInfo}) {
     // Handles login form submission
     const HandleLogin = async (e) => {
         e.preventDefault();
+        localStorage.removeItem("token");
         if (!verifyUsername(Username)) {
+            setLoading(false);
             return;
         }
-        localStorage.removeItem("token");
         const loginInfo = {
             username: Username,
             password: Password
         }
         try{
-            setLoginLoading(true)
+            setLoading(true)
             const response = await LoginUser(loginInfo);
             await sleep(2000); // Simulate network delay for loading state demonstration, REMOVE IN PRODUCTION
             setMessage(response.response) 
+            // console.log(response.token)
             userInfo(response.token)
-            setLoginLoading(false);
+            setLoading(false);
         }   
 
         catch {
             await sleep(2000); // Simulate network delay for loading state demonstration, REMOVE IN PRODUCTION
-            setLoginLoading(false);
+            setLoading(false);
             setMessage("Invalid username or password");
         }
     } 
@@ -103,13 +105,13 @@ function LoginForm({userInfo}) {
                     {Message && <p className="e-error">{Message}</p>}
                 </div>
 
-                <button className="form-button" type="submit" value="submit" disabled={LoginLoading}>
-                    {LoginLoading ? 
+                <button className="form-button" type="submit" value="submit" disabled={Loading}>
+                    {Loading ? 
                     <svg className="auth-load" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
                         <path 
                             d="M13.5 8.5A.5.5 0 0 1 13 8c0-2.757-2.243-5-5-5S3 5.243 3 8a.5.5 0 0 1-1 0c0-3.309 2.691-6 6-6s6 2.691 6 6a.5.5 0 0 1-.5.5"
                             stroke="hsl(0, 0%, 95%)"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             fill="none"
                         />
                     </svg>
@@ -120,7 +122,7 @@ function LoginForm({userInfo}) {
             </form>
 
             <div className="form-divider"><hr/><p>Don't have an account yet?</p><hr/></div>
-            <NavLink className="form-button" to="/register">Register Here</NavLink>
+            <NavLink className="form-button form-button-secondary" to="/register">Register Here</NavLink>
         </div>
     );
 }
