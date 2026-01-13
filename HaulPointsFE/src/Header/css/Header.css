@@ -1,16 +1,56 @@
 .header-container {
-    border: solid blue;
-    position: fixed;
+    height: 75px;
     width: 100%;
-    height: 125px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    padding-left: 10px;
+    z-index: 3;
+    /* border: solid black 1px; */
+    transition: ease .5s;
+}
+.header-container:hover {
+    background-color: hsl(0, 0%, 95%);
+    transition: ease .5s;
+} 
+
+.header-container:hover > .nav-buttons .link-to-login {
+    background-color: hsl(29, 90%, 48%);
+}
+.header-container .logo {
+    height: 60px;
+    background-color: black;
+    border-radius: 10px;
+    margin-right: 20px;
+    padding: 5px;
+}
+.header-container .nav-buttons {
+    display: flex;
+    gap: 10%;
+    width: 80%;
+    margin-left: auto;
+    padding-right: 30px;
+    /* border: solid white; */
+    align-items: center;
 
 }
-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
+.header-container .nav-buttons  .nav-link {
+    font-size: 1.5em;
+    font-weight: 350;
+    /* border: solid green 1px; */
+    height: fit-content;
 }
-.header-container a {
-    font-size: 50px;
+.header-container .nav-buttons .link-to-login {
+    border-radius: 20px;
+    margin-left: auto;
+    /* border: solid blue 1px; */
+    padding: 15px;
+    font-weight: 600;
+    color: hsl(0, 0%, 95%);
+    border: solid white 1px;
+}
+.header-container .nav-buttons .link-to-login:hover {
+    background-color: hsl(29, 90%, 40%);
+    cursor: pointer;
 }

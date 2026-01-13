@@ -2,6 +2,7 @@
 a {
     text-decoration: none;
     color: inherit;
+    all: unset;
 }
 * {
     font-family: "Roboto", sans-serif;

@@ -1,0 +1,113 @@
+.hero-banner-container {
+    min-height: 650px;
+    width: 100%;
+    min-width: 20rem;
+    background-image: conic-gradient(
+        from 0deg at 50% -10%,
+        #e9770c 0%,
+        hsl(41, 66%, 49%) 40%,
+        hsl(29, 90%, 48%) 60% );
+
+    padding-top: 75px;
+    padding: .5rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.token-image {
+    width: 300px;
+    height: fit-content;
+    border-radius: 50%;
+    z-index: 1;
+}
+.token-image img{
+    width: 100%;
+    border-radius: 50%;
+    box-shadow:
+        4px 4px 6px rgba(0, 0, 0, 0.18),
+        8px 10px 18px rgba(0, 0, 0, 0.14),
+        14px 18px 28px rgba(0, 0, 0, 0.10);
+    transition: .5s;
+    animation: fall-in ease 3s;
+}
+@keyframes fall-in {
+    0% {transform: translateY(-500px) rotate3d(1, 0, 0, 0deg);}
+    100% {transform: translateY(0px) rotate3d(1, 0, 0, 360deg);}
+}
+
+
+.token-image img:hover {
+    transform: rotate3d(0, 0, 1, 10deg);
+    transition: ease 1s;
+}
+
+.hero-text {
+    color: white;
+    width: 60rem;
+    min-width: 30rem;
+    height: fit-content;
+    z-index: 3;
+    /* border: solid green; */
+    padding: 1rem;
+}
+.hero-text h1 {
+    font-size: 3.5rem;
+}
+.hero-text h2 {
+    font-size: 3rem;
+    font-weight: 400;
+}
+.hero-text h3 {
+    margin-top: 5rem;
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+.hero-text .hero-banner-register {
+    background-color: hsl(29, 90%, 48%);
+    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    display: inline-block;
+    box-shadow: 2px 2px 0px 2px white;
+    transition: .25s ease;
+    border: solid white 1px;
+    font-size: 1.5rem;
+}
+.hero-text .hero-banner-register:hover {
+    box-shadow: 0px 0px 0px 0px white;
+    transition: .25s linear;
+    transform: translate(2px, 2px);
+    cursor: pointer;
+    background-color: hsl(29, 90%, 40%)
+}
+
+.coin-background {
+    z-index: 0;
+    opacity: 0%;
+    animation: fall infinite linear;
+    position: absolute;
+}
+@keyframes fall {
+    0% {top: 0%; opacity: 0%; transform: rotate3d(1, 0, 0, 0deg);}
+    25% {top: 25%; opacity: 25%; transform: rotate3d(1, 0, 0, 180deg);}
+    50% {top: 50%; opacity: 50%; transform: rotate3d(1, 0, 0, 360deg);}
+    75% {top: 75%; opacity: 25%; transform: rotate3d(1, 0, 0, 180deg);}
+    100% {top: 100%; opacity: 0%; transform: rotate3d(1, 0, 0, 0deg);}
+}
+
+
+@media only screen and (max-width: 1300px) {
+    .token-image {
+        visibility: hidden;
+        /* display: none; */
+        transition: .5s;
+        opacity: 0%;
+
+    }
+    .hero-text {
+        width: 100%;
+    }
+}
