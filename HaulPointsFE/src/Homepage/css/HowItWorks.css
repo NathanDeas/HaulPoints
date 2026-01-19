@@ -1,0 +1,125 @@
+.how-it-works-container {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ background-color: hsl(0, 0%, 95%);
+ position: relative;
+ overflow: hidden;
+ width: 100%;
+}
+.how-steps h1 {
+    position: absolute;
+    color: hsl(29, 90%, 48%);
+    font-size: 5rem;
+    background-color: #4D4D4D;
+    /* border: solid hsl(0, 0%, 95%) 1px; */
+    z-index: 1;
+    padding-right: 4rem;
+    padding-left: 4rem;
+    border-radius: 10px;
+    bottom: 10rem;
+    left: 3rem;
+    transform: skewX(-30deg);
+}
+
+.how-steps {
+    width: 85rem;
+    position: relative;
+    color: white;
+    height: 43rem;
+    padding-top: 5rem;
+    margin-top: 5rem;
+    background-color: #4D4D4D;
+    border-radius: 20px;
+    box-shadow: 3px 29px 81px -17px #4C4C4C;
+    margin-bottom: 5rem;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    scrollbar-color: hsl(29, 90%, 48%) #4d4d4d;
+}
+
+
+/*--------------- STEP CONTENT STYLING ---------------*/
+.how-steps > div {
+    width: 20rem;
+    height: 30rem;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.how-steps > div svg {
+    width: 50%;
+    height: auto;
+    z-index: 1;
+    margin-top: 5rem;
+
+}
+.how-steps > div h2,
+.how-steps > div p,
+.how-steps > div .path-number {
+  position: relative;
+  z-index: 2; 
+}
+.how-steps h2 {
+    z-index: 3;
+    font-weight: 600;
+    font-size: 3rem;
+    color: hsl(29, 90%, 48%);
+    z-index: 3;
+    text-align: center;
+}
+.how-steps p {
+    z-index: 2;
+    text-align: center;
+}
+.how-steps .drive {
+    top: 12rem;
+    left: 75rem;
+}
+
+.how-steps .earn {
+    top: 9.5rem;
+    left: 150rem;
+}
+.how-steps .rewards {
+    top: 14rem;
+    left: 225rem;
+}
+.path-content {
+    border: solid rgba(255, 255, 255, 0.247);
+    width: 100%;
+    padding: 5px;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+/*--------------- ROAD PATH ---------------*/
+.road-test {
+    height: auto;
+    position: absolute;
+    width: 300rem;
+    opacity: 90%;
+    /* border: solid white; */
+}
+
+/*--------------- PATH NUMBERS ---------------*/
+.path-number {
+    border: solid white 1px;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    line-height: 4rem;
+    border-radius: 10%;
+    background-color: #4D4D4D;
+    align-self: center;
+    transform: rotate(45deg);
+}
+.path-number h2 {
+    transform: rotate(-45deg);
+}
+.path-number:hover {
+    background-color: #3b3b3b;
+    cursor:default;
+}

@@ -31,7 +31,7 @@ function Banner() {
             <div className="token-image">
                 <img className="coin-front" src="/HaulPointsToken.png"/>
             </div>
-            <div classname="falling-coins">
+            <div className="falling-coins">
                 <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
                 <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
                 <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
