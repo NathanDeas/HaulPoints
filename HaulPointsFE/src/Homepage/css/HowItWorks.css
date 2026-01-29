@@ -1,125 +1,147 @@
-.how-it-works-container {
- display: flex;
- flex-direction: column;
- align-items: center;
- background-color: hsl(0, 0%, 95%);
- position: relative;
- overflow: hidden;
- width: 100%;
+.hiw-container {
+    height: 150rem;
+    width: 100%;
+    margin: auto;
+    margin-top: -100rem;
 }
-.how-steps h1 {
-    position: absolute;
-    color: hsl(29, 90%, 48%);
-    font-size: 5rem;
-    background-color: #4D4D4D;
-    /* border: solid hsl(0, 0%, 95%) 1px; */
-    z-index: 1;
-    padding-right: 4rem;
-    padding-left: 4rem;
-    border-radius: 10px;
-    bottom: 10rem;
-    left: 3rem;
-    transform: skewX(-30deg);
-}
-
-.how-steps {
-    width: 85rem;
+.hiw-wrapper {
+    width: 60rem;
+    height: 150rem;
+    margin: auto;
+    background-color: hsl(0, 0%, 95%);
     position: relative;
-    color: white;
-    height: 43rem;
-    padding-top: 5rem;
-    margin-top: 5rem;
-    background-color: #4D4D4D;
     border-radius: 20px;
-    box-shadow: 3px 29px 81px -17px #4C4C4C;
-    margin-bottom: 5rem;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    scrollbar-color: hsl(29, 90%, 48%) #4d4d4d;
+    display: flex;
+}
+.hiw-wrapper .hiw-left-section {
+    background-color: #4D4D4D;
+    width: 26rem;
+    height: 100%;
+    padding: 2rem;
+    border-radius: 20px ;
+}
+.hiw-wrapper .hiw-left-section .hiw-title H1 {
+    color: hsl(0, 0%, 95%);
+    width: 1rem;
+    font-size: 4rem;
+}
+.hiw-wrapper .hiw-left-section .hiw-title h2 {
+    color: hsl(0, 0%, 95%);
+    font-weight: 200;
+    font-size: 1.5rem;
+    width: 20rem;
+    border-radius: 10px;
+    text-align: center;
+}
+.hiw-wrapper .hiw-left-section .hiw-title h2 span {
+    color: hsl(29, 90%, 48%);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.hiw-title {
+    position: sticky;
+    top: 13rem;
+    height: 28rem;
 }
 
-
-/*--------------- STEP CONTENT STYLING ---------------*/
-.how-steps > div {
-    width: 20rem;
-    height: 30rem;
-    z-index: 1;
+.hiw-right-section {
+    height: 100%;
+    border-radius: 20px;
+    z-index: 3;
     position: absolute;
+    top: 0;
+    right: 0;
+    width: 35.9rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-evenly;
+    box-sizing:content-box;
 }
-.how-steps > div svg {
-    width: 50%;
-    height: auto;
-    z-index: 1;
-    margin-top: 5rem;
+.hiw-step {
+    height: 20rem;
+    display: flex;
+    flex-direction: row;
+    /* border: solid; */
+    height: 10rem;
+    position: sticky;
+    top: 5rem;
+}
+.hiw-step.drive {
+    top: 10rem;
+    padding-bottom: 35rem;
+}
+.hiw-step.earn {
+    top:20rem;
+    padding-bottom: 25rem;
+}
+.hiw-step.rewards {
+    top: 30rem;
+    padding-bottom: 15rem;
 
 }
-.how-steps > div h2,
-.how-steps > div p,
-.how-steps > div .path-number {
-  position: relative;
-  z-index: 2; 
+.hiw-step .step-content {
+    width: 25rem;
+    margin:auto;
+
 }
-.how-steps h2 {
-    z-index: 3;
-    font-weight: 600;
+.hiw-step .step-content h2 {
+    /* border: solid; */
     font-size: 3rem;
+    letter-spacing: .5rem;
     color: hsl(29, 90%, 48%);
-    z-index: 3;
-    text-align: center;
-}
-.how-steps p {
-    z-index: 2;
-    text-align: center;
-}
-.how-steps .drive {
-    top: 12rem;
-    left: 75rem;
-}
+    filter: drop-shadow(1px 1px black);
 
-.how-steps .earn {
-    top: 9.5rem;
-    left: 150rem;
+
+    
 }
-.how-steps .rewards {
-    top: 14rem;
-    left: 225rem;
+.hiw-step .step-content p {
+    padding-top: 1rem;
+    font-weight: 600;
 }
-.path-content {
-    border: solid rgba(255, 255, 255, 0.247);
+.hiw-step .logo {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    background-color: hsl(29, 90%, 48%);
+    padding: 6px;
+    filter: drop-shadow(3px 5px);
+    flex-shrink: 0;
+}
+.hiw-step .logo svg {
     width: 100%;
-    padding: 5px;
-    margin-top: 1rem;
-    border-radius: 10px;
+    height: 100%;
 }
 
-/*--------------- ROAD PATH ---------------*/
-.road-test {
-    height: auto;
+.road-path {
+    height: 100%;
+    width:15rem;
     position: absolute;
-    width: 300rem;
-    opacity: 90%;
-    /* border: solid white; */
+    top: 0;
+    left: 50%;
+    transform: translate(-60%) ;
 }
 
-/*--------------- PATH NUMBERS ---------------*/
-.path-number {
-    border: solid white 1px;
-    width: 4rem;
-    height: 4rem;
-    text-align: center;
-    line-height: 4rem;
-    border-radius: 10%;
-    background-color: #4D4D4D;
-    align-self: center;
-    transform: rotate(45deg);
-}
-.path-number h2 {
-    transform: rotate(-45deg);
-}
-.path-number:hover {
-    background-color: #3b3b3b;
-    cursor:default;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

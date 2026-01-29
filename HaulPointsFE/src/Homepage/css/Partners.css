@@ -1,5 +1,6 @@
 .partners-container {
-    height: 20rem;
+    height: 50rem;
+    /* height: 40rem; */
     background-color: hsl(29, 90%, 48%);
     display: flex;
     justify-content: center;

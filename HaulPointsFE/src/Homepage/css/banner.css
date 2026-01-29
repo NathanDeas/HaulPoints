@@ -1,5 +1,5 @@
 .hero-banner-container {
-    min-height: 650px;
+    min-height: 150rem;
     width: 100%;
     min-width: 20rem;
     background-image: conic-gradient(
@@ -7,15 +7,21 @@
         hsl(29, 90%, 48%) 0%,
         hsl(41, 66%, 49%) 40%,
         hsl(29, 90%, 48%) 60% );
-
-    padding-top: 75px;
-    padding: .5rem;
+    padding-top: 10rem;
     position: relative;
     overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: center;
 
+}
+.hero-banner-container::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%,  hsl(0, 0%, 95%));
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
 }
 .token-image {
     width: 300px;
@@ -98,34 +104,3 @@
     100% {top: 100%; opacity: 0%; transform: rotate3d(1, 0, 0, 0deg);}
 }
 
-
-@media only screen and (max-width: 1300px) {
-    .token-image {
-        visibility: hidden;
-        display: none;
-        transition: .5s;
-        opacity: 0%;
-
-    }
-    .hero-banner-container {
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-    }
-    .hero-text {
-        width: 100%;
-        text-align: center;    
-    }
-}
-@media only screen and (max-width: 750px) {
-    .hero-text h1 {
-        font-size: 2.5rem;
-
-    }
-    .hero-text h2 {
-        font-size: 2rem
-    }
-    .hero-text h3 {
-        font-size: 2rem
-    }
-}

@@ -1,4 +1,12 @@
 .homepage-container {
-    /* padding: 10px; */
-
+    background-color: #f2f2f2;
+    height: fit-content;
+}
+.header-scroll-trigger {
+    border: solid;
+    position: absolute;
+    width: 10px;
+    top: 0;
+    left: 0;
+    color: yellow;
 }
