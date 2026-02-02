@@ -1,25 +1,29 @@
 import "../css/banner.css"
 import { NavLink } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 
 function Banner() {
     function getRandomInt(min, max) {
-        // const getRandomIntegerInclusive = (min, max) => {
-        // Ensure min and max are treated as integers
         min = Math.ceil(min);
         max = Math.floor(max);
-        // The formula for an inclusive range: Math.floor(Math.random() * (max - min + 1)) + min
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
-    function getfallingTokenStyle()
-    {
-        return {
-            left: `${getRandomInt(0, 100)}%`,
-            width: `${getRandomInt(15, 50)}px`,
-            animationDuration: `${getRandomInt(5, 8)}s`,
-            animationDelay: `${getRandomInt(0, 5)}s`
+
+    const coinref = useRef(null)
+    useEffect(() => {
+        for (let i = 0; i < 8; i++) {
+            const token = document.createElement("img")
+            token.src = "/HaulPointsToken.png"
+            token.className = "coin-background"
+            token.alt = "Animated Haul Points Token"
+            token.style.left = `${getRandomInt(0, 100)}%`
+            token.style.width = `${getRandomInt(15, 50)}px`
+            token.style.animationDuration = `${getRandomInt(10, 15)}s`
+            token.style.animationDelay = `${getRandomInt(0, 10)}s`
+            coinref.current.appendChild(token);
         }
-    };
+    },[]);
     return (
         <div className="hero-banner-container">
             <div className="hero-text">
@@ -31,15 +35,8 @@ function Banner() {
             <div className="token-image">
                 <img className="coin-front" src="/HaulPointsToken.png"/>
             </div>
-            <div className="falling-coins">
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
-                <img className="coin-background" style= {getfallingTokenStyle()} src="/HaulPointsToken.png"/>
+            <div className="falling-coins" ref={coinref}>
+
             </div>
         </div>
     )
