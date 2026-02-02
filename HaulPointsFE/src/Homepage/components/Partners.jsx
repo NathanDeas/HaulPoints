@@ -2,6 +2,7 @@ import "../css/Partners.css"
 function Partners() {
     return (
         <div className="partners-container">
+            <h1>Trusted By Comapnies You Know</h1>
             <div className="carousel">
                 <div className="icon-wrapper">
                     <div className="icon-container">
@@ -22,6 +23,7 @@ function Partners() {
                     </div>
                 </div>
             </div>
+            <div className="link-to-partners">Find Yours</div>
         </div>
     );
 }

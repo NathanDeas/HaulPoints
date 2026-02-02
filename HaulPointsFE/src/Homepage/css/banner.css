@@ -97,10 +97,10 @@
     position: absolute;
 }
 @keyframes fall {
-    0% {top: 0%; opacity: 50%; transform: rotate3d(1, 0, 0, 0deg);}
+    0% {top: -5%; opacity: 30%; transform: rotate3d(1, 0, 0, 0deg);}
     25% {top: 20%; opacity: 30%; transform: rotate3d(1, 0, 0, 180deg);}
-    50% {top: 40%; opacity: 50%; transform: rotate3d(1, 0, 0, 360deg);}
-    75% {top: 60%; opacity: 25%; transform: rotate3d(1, 0, 0, 180deg);}
+    50% {top: 40%; opacity: 30%; transform: rotate3d(1, 0, 0, 360deg);}
+    75% {top: 60%; opacity: 30%; transform: rotate3d(1, 0, 0, 180deg);}
     100% {top: 80%; opacity: 0%; transform: rotate3d(1, 0, 0, 0deg);}
 }
 

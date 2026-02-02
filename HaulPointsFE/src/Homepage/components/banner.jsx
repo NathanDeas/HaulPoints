@@ -19,8 +19,8 @@ function Banner() {
             token.alt = "Animated Haul Points Token"
             token.style.left = `${getRandomInt(0, 100)}%`
             token.style.width = `${getRandomInt(15, 50)}px`
-            token.style.animationDuration = `${getRandomInt(10, 15)}s`
-            token.style.animationDelay = `${getRandomInt(0, 10)}s`
+            token.style.animationDuration = `${getRandomInt(20, 30)}s`
+            token.style.animationDelay = `${getRandomInt(3, 10)}s`
             coinref.current.appendChild(token);
         }
     },[]);
