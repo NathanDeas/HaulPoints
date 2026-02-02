@@ -4,7 +4,7 @@ import HeroBanner from "../components/banner.jsx"
 import HowItWorks from "../components/HowItWorks.jsx"
 import Partners from "../components/Partners.jsx"
 import { useRef, useEffect } from "react"
-// import Testimonials from "../components/Testimonials.jsx";
+import Testimonials from "../components/Testimonials.jsx";
 
 
 
@@ -33,8 +33,8 @@ function Homepage() {
     <div className="homepage-container">
       <HeroBanner />
       < HowItWorks />
-      {/* <Testimonials /> */}
       <Partners />
+      <Testimonials />
     </div>
     </>
   );

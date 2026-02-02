@@ -1,7 +1,7 @@
 .partners-container {
-    height: 50rem;
+    height: fit-content;
     /* height: 40rem; */
-    background-color: hsl(29, 90%, 48%);
+    background-color: hsl(0, 0%, 90%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +18,7 @@
     position: absolute;
     height: 13rem;
     width: 85rem;
-    background:linear-gradient(to left, hsl(29, 90%, 48%), hsla(29, 90%, 48%, 0),  hsl(29, 90%, 48%));
+    background:linear-gradient(to left, hsl(0, 0%, 90%), hsla(29, 90%, 48%, 0),  hsl(0, 0%, 90%));
     top: 0;
     left: 0;
     pointer-events: none;
@@ -46,7 +46,6 @@
 }
 .icon-wrapper img{
     width: 8rem;
-    filter: grayscale(10);
     opacity: 50%;
     transition: .5s;
     border-radius: 50%;

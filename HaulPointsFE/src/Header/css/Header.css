@@ -20,7 +20,7 @@
     padding: .25rem;
     box-sizing: content-box;
     border-radius: 10px;
-    filter: grayscale(100);
+    /* filter: grayscale(100); */
 }
 .header-content-wrapper .nav-buttons {
     margin-left: auto;
@@ -57,7 +57,7 @@
 
 
 .scrolled {
-    background-color: hsl(0, 0%, 95%);
+    background-color: hsla(0, 0%, 95%, 0.95);
     transition: .5s;
 }
 .scrolled .header-content-wrapper .nav-buttons {
@@ -71,5 +71,5 @@
     color: white;
 }
 .scrolled .header-content-wrapper .logo {
-    background-color: #4D4D4D;
+    background: linear-gradient(to left, hsl(29, 90%, 48%), hsla(29, 90%, 48%, 0.464));
 }
