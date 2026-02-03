@@ -1,0 +1,102 @@
+.testimonial-container {
+    height: fit-content;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5rem 0 5rem 0;
+}
+.testimonial-container h1 {
+    margin-bottom: 3rem;
+    font-size: 3rem;
+    font-weight: 800;
+    color:hsl(29, 90%, 48%);
+    filter: drop-shadow(1px 1px black);
+}
+.testimonials-wrapper {
+    width: 80rem;
+    /* border: solid orange 5px; */
+    list-style-type: none;
+    grid-template-columns: auto auto;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    display: grid;
+    height: fit-content;
+    box-sizing: content-box;
+    padding: 3rem;
+    border-radius: 10px;
+
+}
+.testimonial-card {
+    color: black;
+    height: fit-content;
+    display: grid;
+    grid-template-rows: max-content 1fr;
+    grid-template-columns: max-content 1fr 1fr;
+    grid-template-areas: 
+    "image message message"
+    "image name role";
+    overflow: hidden;
+    border-radius: 10px;
+    transition: .5s;
+    background-color: hsl(0, 0%, 95%);
+    border: solid 3px hsl(0, 0%, 85%);
+    filter: drop-shadow(10px 5px #4D4D4D);
+
+
+}
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    filter: drop-shadow(10px 12px hsl(29, 90%, 48%));
+    transition: .5s;
+}
+
+
+
+
+.testimonial-card .testi-name {
+    grid-area: name;
+    padding: 10px 10px 0 10px;
+    font-size: 1rem;
+    text-align: right;
+}
+.testimonial-card .testi-photo {
+    grid-area: image;
+    width: 100px;
+    height: 150px;
+    border-radius: 0 0 70% 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: solid 8px hsl(29, 90%, 48%);
+    
+}
+
+.testi-photo img {
+    object-fit:cover;
+    width: 100%;
+    height: 100%;
+    
+    
+}
+.testimonial-card .testi-role {
+    grid-area: role;
+    padding-top: 10px;
+    font-size: 1rem;
+    
+}
+.testimonial-card .testi-message {
+    grid-area: message;
+    text-align: center;
+    place-self: center;
+    font-size: 1rem;
+    /* width: 85%; */
+    padding:10px;
+    font-weight: 800;
+
+}
+
+
+
