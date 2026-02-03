@@ -5,6 +5,7 @@ import HowItWorks from "../components/HowItWorks.jsx"
 import Partners from "../components/Partners.jsx"
 import { useRef, useEffect } from "react"
 import Testimonials from "../components/Testimonials.jsx";
+import Footer from "../../Footer/Components/Footer.jsx"
 
 
 
@@ -35,6 +36,7 @@ function Homepage() {
       < HowItWorks />
       <Partners />
       <Testimonials />
+      <Footer />
     </div>
     </>
   );

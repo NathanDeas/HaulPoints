@@ -1,6 +1,5 @@
 .partners-container {
     height: fit-content;
-    /* height: 40rem; */
     background-color: hsl(0, 0%, 90%);
     display: flex;
     flex-direction: column;
@@ -58,13 +57,12 @@
 .icon-container, .icon-container-copy {
     display: flex;
     width: 85rem;
-    /* border: solid white; */
     justify-content: space-around;
     flex-shrink: 0;
 }
 .icon-wrapper img{
     width: 8rem;
-    opacity: 50%;
+    opacity: 80%;
     transition: .5s;
     border-radius: 50%;
 

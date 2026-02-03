@@ -87,7 +87,7 @@
     transition: .25s linear;
     transform: translate(2px, 2px);
     cursor: pointer;
-    background-color: #c2630a
+    background-color: hsl(29, 90%, 40%)
 }
 
 .coin-background {
