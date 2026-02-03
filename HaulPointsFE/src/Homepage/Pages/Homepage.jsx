@@ -14,7 +14,6 @@ function Homepage() {
   const headerActionRef = useRef();
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      console.log(headerActionRef.current);
       if(!entries[0].isIntersecting) {
         headerActionRef.current.classList.add("scrolled")
       }

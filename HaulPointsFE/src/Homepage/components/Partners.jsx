@@ -2,7 +2,7 @@ import "../css/Partners.css"
 function Partners() {
     return (
         <div className="partners-container">
-            <h1>Trusted By Comapnies You Know</h1>
+            <h1>Trusted By Companies You Know</h1>
             <div className="carousel">
                 <div className="icon-wrapper">
                     <div className="icon-container">

@@ -1,4 +1,5 @@
 import '../css/Footer.css'
+import { NavLink } from 'react-router-dom'
 
 function Footer() 
 {
@@ -8,15 +9,15 @@ function Footer()
             <div className='footer-content'>
                 <div className='footer-tag'>
                     <h2>Start Earning More Today</h2>
-                    <button>Sign Up Now</button>
+                    <NavLink className="register-link" to="/register">Sign Up Here</NavLink>
                 </div>
                 <nav className='footer-nav-links'>
-                    <span>Home</span>
+                    <NavLink to="/">Home</NavLink>
                     <span>Parntners</span>
                     <span>Contact</span>
                     <span>Frequently Asked Questions</span>
                     <span>About</span>
-                    <span>Login</span>
+                    <NavLink to="/login">Login</NavLink>
 
                 </nav>
                 </div> 

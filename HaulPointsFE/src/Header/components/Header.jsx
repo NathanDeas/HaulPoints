@@ -1,7 +1,5 @@
-import {react} from 'react';
 import { NavLink } from 'react-router-dom';
 import '../css/Header.css';
-import { useInView } from 'react-intersection-observer';
 
 function Header({headerActionRef}) {
 

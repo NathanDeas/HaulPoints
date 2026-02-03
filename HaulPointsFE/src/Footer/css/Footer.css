@@ -21,6 +21,7 @@
     top: 50%;
     transform: translateY( -50%);
     opacity: 50%;
+    pointer-events: none;
     
 }
 .footer-content {
@@ -44,12 +45,16 @@
     text-align: center;
     margin-bottom: 1rem;
 }
-.footer-tag button {
+.footer-tag .register-link {
     border: solid;
     width: fit-content;
     font-size: 1.5rem;
     padding: 1rem 3rem 1rem 3rem;
-
+}
+.footer-tag .register-link:hover {
+    background-color: white;
+    color: #4D4D4D;
+    cursor: pointer;
 }
 .footer-nav-links {
     /* border: solid; */
@@ -60,4 +65,7 @@
     border-left: solid white;
     height: fit-content;
     padding: 1rem;
+}
+.footer-nav-links * {
+    cursor: pointer;
 }
