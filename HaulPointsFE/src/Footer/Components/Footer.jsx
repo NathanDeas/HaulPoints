@@ -20,7 +20,7 @@ function Footer()
                     <NavLink to="/login">Login</NavLink>
 
                 </nav>
-                </div> 
+            </div> 
             <img src='./HaulPointsLogo-White.png' className='footer-logo'/>
         </div>
     </div>
