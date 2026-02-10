@@ -78,7 +78,7 @@ function HowItWorks() {
                     fill="#4D4D4D"
                     strokeLinecap="round"
                     />                   
-                    <path 
+                    <path className="middle-line"
                     d="M14.2 0Q10.5 6.4 10 12.4L10 90Q10.4 95.7 6.7 102"
                     fill="none"
                     stroke="#f7b500"

@@ -1,7 +1,6 @@
 .hero-banner-container {
     min-height: 150rem;
     width: 100%;
-    min-width: 20rem;
     background-image: conic-gradient(
         from 0deg at 50% -10%,
         hsl(29, 90%, 48%) 0%,
@@ -53,7 +52,6 @@
 .hero-text {
     color: white;
     width: 60rem;
-    min-width: 30rem;
     height: fit-content;
     z-index: 3;
     padding: 1rem;
@@ -102,5 +100,48 @@
     50% {top: 40%; opacity: 30%; transform: rotate3d(1, 0, 0, 360deg); pointer-events: none;}
     75% {top: 60%; opacity: 30%; transform: rotate3d(1, 0, 0, 180deg); pointer-events: none;}
     100% {top: 80%; opacity: 0%; transform: rotate3d(1, 0, 0, 0deg); pointer-events: none;}
+}
+/*phone*/
+@media (max-width: 768px)
+{
+    .hero-banner-container {
+        width: 100vw;
+        padding-top: 0rem;
+    }
+    .hero-text {
+        width: 100%;
+        height: 50rem;
+        padding-top: 5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero-text h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+    .hero-text h2 {
+        font-size: 1.5rem;
+        margin-top: auto;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    .hero-text h3 {
+        display: none;
+    }
+    .hero-text .hero-banner-register {
+        padding: 0;
+        margin-bottom: 3rem;
+        padding: .5rem 1rem .5rem 1rem;
+        width: fit-content;
+    }
+    .coin-background {
+        animation: none;
+    }
+    .token-image {
+        position: absolute;
+        top: 15rem;
+        width: 250px;
+    }
 }
 

@@ -62,7 +62,6 @@
     height: 20rem;
     display: flex;
     flex-direction: row;
-    /* border: solid; */
     height: 10rem;
     position: sticky;
     top: 5rem;
@@ -120,6 +119,108 @@
     top: 0;
     left: 50%;
     transform: translate(-60%) ;
+}
+
+@media (max-width: 768px)
+{
+.hiw-container {
+    height: 100rem;
+    max-width: 100vw;
+}
+.hiw-wrapper {
+    max-width: 95%;
+    height: 100rem;
+}
+.hiw-wrapper .hiw-left-section {
+    width: 100%;
+    height: 100rem;
+}
+.hiw-wrapper .hiw-left-section .hiw-title h1 {
+    font-size: 3rem;
+    margin-left: 3.5rem;
+    width: 16rem;
+    text-align: right;
+}
+.hiw-wrapper .hiw-left-section .hiw-title h2 {
+    display: none;
+}
+
+.hiw-title {
+    position: absolute;
+    top: 1rem;
+    height: fit-content;
+}
+
+.hiw-right-section {
+    height: 88rem;
+    border-radius: 20px;
+    z-index: 3;
+    width: 100%;
+    justify-content: space-evenly;
+    box-sizing:content-box;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    margin-top: 10rem;
+    margin-bottom: 2rem;
+}
+.hiw-step {
+    position: sticky;
+    top: 5rem;
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+}
+.hiw-step.drive {
+    top: 8rem;
+    padding: 0 0 24rem 0;
+}
+.hiw-step.earn {
+    top:20rem;
+    padding: 0 0 12rem 0;
+}
+.hiw-step.rewards {
+    top: 32rem;
+    padding: 0;
+}
+.hiw-step .step-content {
+    padding-right: 1rem;
+}
+.hiw-step .step-content h2 {
+    font-size: 3rem;
+    padding-left: .5rem;  
+    letter-spacing: .2rem; 
+}
+.hiw-step .step-content p {
+    font-weight: 600;
+    color: white;
+    padding-left: 1rem;
+}
+.hiw-step .logo {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: hsl(29, 90%, 48%);
+    padding: 2px;
+    filter: drop-shadow(3px 5px);
+    flex-shrink: 0;
+}
+.hiw-step .logo svg {
+    width: 100%;
+    height: 100%;
+}
+
+.road-path {
+    height: 100%;
+    width:5rem;
+    position: absolute;
+    top: 0;
+    left: 4rem;
+}
+.road-path .middle-line {
+    stroke-dasharray: 1;
+}
+
+
 }
 
 

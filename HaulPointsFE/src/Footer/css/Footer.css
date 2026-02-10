@@ -69,3 +69,42 @@
 .footer-nav-links * {
     cursor: pointer;
 }
+@media (max-width: 768px) {
+    .footer-container {
+        max-width: 100vw;
+        overflow: hidden;
+    }
+    .footer-content-wrapper {
+        width: 100%;
+        max-width: 100vw;
+    }
+    .footer-content {
+        padding: 2rem;
+        width: 100%;
+    }
+    .footer-tag {
+        display: flex;
+    }
+    .footer-tag h2 {
+        font-size: 2rem;
+        text-align: left;
+        text-align: center;
+    }
+    .footer-tag .register-link {
+        font-size: 1rem;
+        padding-top: 1rem;
+    }
+    .footer-nav-links {
+        flex: 0;
+        width: 20rem;
+    }
+    .footer-logo {
+        width: 90%;
+        height: auto;
+        bottom: 0;
+        margin-top: auto;
+        
+    }
+
+
+}
