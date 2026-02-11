@@ -8,14 +8,14 @@
 }
 .form-container h1 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem;
+    margin-bottom: 1em;
+    font-size: 2em;
     font-weight: 300;
 }
 .form-container form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: .5em;
 }
 .form-container form input, .form-button {
     font-size: 1.5em;
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-size: 1.5em;
+  font-size: 1.5eem;
   font-weight: 300;
 }
 .form-divider hr {
@@ -118,4 +118,10 @@ button .auth-load {
 .form-container .form-button.form-button-secondary:hover {
     background-color: hsl(29, 90%, 48%);
     color: hsl(0, 0%, 95%);
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        font-size: 10px;
+    }
 }
