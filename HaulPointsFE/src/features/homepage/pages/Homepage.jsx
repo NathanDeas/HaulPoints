@@ -1,11 +1,11 @@
 import "../css/homepage.css"
-import Header from "../../Header/components/Header.jsx"
-import HeroBanner from "../components/banner.jsx"
+import Header from "../../../components/Header/Header.jsx"
+import Footer from "../../../components/Footer/Footer.jsx"
+import HeroBanner from "../components/Banner.jsx"
 import HowItWorks from "../components/HowItWorks.jsx"
 import Partners from "../components/Partners.jsx"
-import { useRef, useEffect } from "react"
 import Testimonials from "../components/Testimonials.jsx";
-import Footer from "../../Footer/Components/Footer.jsx"
+import { useRef, useEffect } from "react"
 
 
 

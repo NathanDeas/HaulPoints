@@ -1,4 +1,4 @@
-import "../css/AuthLayout.css"
+import "./AuthLayout.css"
 import { NavLink } from "react-router-dom"; 
 
 function AuthLayout  ({ children }) {

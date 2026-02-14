@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Homepage from "./Homepage/Pages/Homepage.jsx";
-import Login from './users/Pages/LoginPage.jsx';
-import Register from './users/Pages/RegisterPage.jsx';
-import Ddashboard from './Driver/Pages/DriverPage.jsx';
-import Adashboard from './Admin/Pages/AdminPage.jsx'
+import Homepage from "./features/homepage/pages/Homepage.jsx";
+import Login from './features/auth/pages/LoginPage.jsx';
+import Register from './features/auth/pages/RegisterPage.jsx';
+import Ddashboard from './features/driverDashboard/pages/DriverPage.jsx';
+import Adashboard from './features/adminDashboard/pages/AdminPage.jsx'
 import "./app.css";
 
 function App() {
