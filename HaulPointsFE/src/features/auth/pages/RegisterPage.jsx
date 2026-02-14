@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import AuthLayout from "../components/AuthLayout.jsx";
+import AuthLayout from "../../../layouts/AuthLayout.jsx";
 import RegisterForm from "../components/RegisterForm.jsx";
 
 
