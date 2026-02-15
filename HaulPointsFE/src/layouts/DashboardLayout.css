@@ -20,6 +20,9 @@
     height: fit-content;
     padding: 1.5rem;
     gap: 1rem;
+    max-width: 120rem;
+    border: solid;
+    margin: auto;
 }
 .dashboard-bento-layout > * {
     border-radius: 10px;
