@@ -1,0 +1,66 @@
+/*Mobile First Approach*/
+.dashboard-container {
+    max-width: 100vw;
+    height: fit-content;
+}
+
+.dashboard-header {
+    height: 4rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    background-color: green;
+}
+
+.dashboard-bento-layout {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: 15rem;
+    grid-auto-flow: row;
+    width: 100%;
+    height: fit-content;
+    padding: 1.5rem;
+    gap: 1rem;
+}
+.dashboard-bento-layout > * {
+    border-radius: 10px;
+    border: solid orange 2px;
+    background-color: hsl(0, 0%, 90%);
+}
+
+.hero-container {
+    grid-column: 1 / -1;
+}
+.content-placeholder {
+    /* border: solid; */
+}
+.content-placeholder.tall {
+    grid-row: span 2;
+}
+.content-placeholder.two {
+    background-color: green;
+    grid-column: span 2;
+}
+
+/*landscape phone/tablet sizing */
+@media (min-width: 700px) {
+    .dashboard-bento-layout {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 15rem;
+    }
+
+}
+/* desktop screen */
+@media (min-width: 1025px) {
+    .dashboard-bento-layout {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 25rem;
+    }
+    .hero-container {
+        grid-column: span 3;
+    }
+    .content-placeholder.two {
+        background-color: green;
+        grid-column: span 2;
+    }
+
+}

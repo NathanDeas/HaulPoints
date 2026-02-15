@@ -4,6 +4,7 @@
     height: 30rem;
     border-top: solid 2px hsl(29, 90%, 48%);
     position: relative;
+    max-width: 100vw ;
 }
 .footer-content-wrapper {
     width: 85rem;
