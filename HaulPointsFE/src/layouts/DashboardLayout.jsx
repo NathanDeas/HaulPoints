@@ -34,7 +34,6 @@ function DashboardLayout() {
                 
             </div>
         </div>
-        {/* <Footer/> */}
     </div>
     );
 }

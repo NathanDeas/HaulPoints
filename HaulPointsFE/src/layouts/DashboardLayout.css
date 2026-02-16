@@ -1,28 +1,27 @@
 /*Mobile First Approach*/
 .dashboard-container {
-    max-width: 100vw;
+    max-width: 100%;
     height: fit-content;
 }
-
 .dashboard-header {
     height: 4rem;
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     background-color: green;
 }
 
 .dashboard-bento-layout {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: 15rem;
+    grid-auto-rows: 10rem;
     grid-auto-flow: row;
     width: 100%;
     height: fit-content;
     padding: 1.5rem;
     gap: 1rem;
     max-width: 120rem;
-    border: solid;
     margin: auto;
+    justify-content: center;
 }
 .dashboard-bento-layout > * {
     border-radius: 10px;
@@ -34,7 +33,7 @@
     grid-column: 1 / -1;
 }
 .content-placeholder {
-    /* border: solid; */
+    grid: span 1;
 }
 .content-placeholder.tall {
     grid-row: span 2;
@@ -51,16 +50,15 @@
         grid-auto-rows: 15rem;
     }
 
+
 }
 /* desktop screen */
 @media (min-width: 1025px) {
     .dashboard-bento-layout {
         grid-template-columns: repeat(3, 1fr);
-        grid-auto-rows: 25rem;
+        grid-auto-rows: 20rem;
     }
-    .hero-container {
-        grid-column: span 3;
-    }
+
     .content-placeholder.two {
         background-color: green;
         grid-column: span 2;
