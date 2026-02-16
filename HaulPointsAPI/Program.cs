@@ -31,7 +31,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             // Update the origins to match your React app's URL and port
-            policy.WithOrigins("http://localhost:5173", "http://localhost:3000") 
+            policy.WithOrigins("http://192.168.12.195:8888", "http://localhost:8888") 
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });

@@ -1,0 +1,8 @@
+.temp-a {
+    border: solid blue;
+    height: 20vh;
+    width: 100%;
+    z-index: 1000;
+    background-color: grey;
+
+}

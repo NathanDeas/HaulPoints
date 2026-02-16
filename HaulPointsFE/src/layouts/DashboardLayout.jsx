@@ -1,38 +1,20 @@
 import './DashboardLayout.css'
 // import Footer from "../components/Footer/Footer.jsx"
 
-function DashboardLayout() {
+function DashboardLayout({ userInfo }) {
+    
+    const dashcontent = userInfo.map(content =>
+        <div className={content.type} key={content.id}>
+            <span>{content.role}</span>
+        </div>
+    );
     return(
     <div className='dashboard-container'>
         <div className='dashboard-header'>
             HEADER
         </div>
         <div className='dashboard-bento-layout'>
-            <div className='hero-container'>
-                Hero Container
-            </div>
-            <div className='content-placeholder'>
-                content
-
-            </div>
-            <div className='content-placeholder'>
-                
-            </div>
-            <div className='content-placeholder'>
-                
-            </div>
-            <div className='content-placeholder wide'>
-                
-            </div>
-            <div className='content-placeholder'>
-                
-            </div>
-            <div className='content-placeholder tall'>
-                
-            </div>
-            <div className='content-placeholder'>
-                
-            </div>
+            {dashcontent}
         </div>
     </div>
     );
