@@ -17,6 +17,7 @@ function Header({headerActionRef}) {
           <span className="nav-link">Partners</span>
           <span className="nav-link">FAQ</span>
           <span className="nav-link">Contact</span>
+          <NavLink className="nav-link" to="/ddashboard">dashboard</NavLink>
           <NavLink className="nav-link to-login" to="/login">Login</NavLink>
         </nav>
       </div>
@@ -35,6 +36,7 @@ function Header({headerActionRef}) {
             <span className="nav-link">Partners</span>
             <span className="nav-link">FAQ</span>
             <span className="nav-link">Contact</span>
+            <NavLink className="nav-link" to="/ddashboard">dashboard</NavLink>
           </div>
 
 

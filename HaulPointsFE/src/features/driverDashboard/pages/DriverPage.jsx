@@ -1,9 +1,10 @@
+import DashboardLayout from "../../../layouts/DashboardLayout.jsx"
 function DriverPage() {
 
     return (
-        <>
-        Driver Page
-        </>
+        <DashboardLayout>
+            Driver Page
+        </DashboardLayout>
     );
 }
 export default DriverPage;
