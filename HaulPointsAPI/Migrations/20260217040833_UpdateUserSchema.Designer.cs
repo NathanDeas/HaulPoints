@@ -3,6 +3,7 @@ using System;
 using HaulPointsAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,14 +11,16 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HaulPointsAPI.Migrations
 {
     [DbContext(typeof(HaulPointsDbContext))]
-    partial class HaulPointsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260217040833_UpdateUserSchema")]
+    partial class UpdateUserSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
 
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Organization", b =>
+            modelBuilder.Entity("HaulPointsAPI.Models.Organization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -28,7 +31,7 @@ namespace HaulPointsAPI.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(255)
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LogoUrl")
@@ -44,32 +47,14 @@ namespace HaulPointsAPI.Migrations
                     b.ToTable("Organizations");
                 });
 
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Point", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Balance")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Points");
-                });
-
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.User", b =>
+            modelBuilder.Entity("HaulPointsAPI.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasDefaultValue(false);
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -86,11 +71,8 @@ namespace HaulPointsAPI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValue("Driver");
+                    b.Property<int>("Role")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -99,45 +81,23 @@ namespace HaulPointsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
                     b.HasIndex("OrganizationId");
 
-                    b.HasIndex("Username")
-                        .IsUnique();
-
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Point", b =>
+            modelBuilder.Entity("HaulPointsAPI.Models.User", b =>
                 {
-                    b.HasOne("HaulPointsAPI.Models.Entities.User", "User")
-                        .WithOne("Point")
-                        .HasForeignKey("HaulPointsAPI.Models.Entities.Point", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.User", b =>
-                {
-                    b.HasOne("HaulPointsAPI.Models.Entities.Organization", "Organization")
+                    b.HasOne("HaulPointsAPI.Models.Organization", "Organization")
                         .WithMany("Users")
                         .HasForeignKey("OrganizationId");
 
                     b.Navigation("Organization");
                 });
 
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Organization", b =>
+            modelBuilder.Entity("HaulPointsAPI.Models.Organization", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.User", b =>
-                {
-                    b.Navigation("Point");
                 });
 #pragma warning restore 612, 618
         }

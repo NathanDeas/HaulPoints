@@ -1,8 +1,8 @@
 using HaulPointsAPI.Data;
-using HaulPointsAPI.Models;
+using HaulPointsAPI.Models.Entities;
+using HaulPointsAPI.Models.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-// using Microsoft.AspNetCore.Authorization; 
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
@@ -64,7 +64,7 @@ namespace HaulPointsAPI.Services
                 // Normalize username to lowercase
                 Username = rUser.Username.ToLower(),
                 Email = rUser.Email,
-                Role = "Driver", // Default role
+                Role = RoleEnum.Driver, // Default role
                 CreatedAt = DateTime.UtcNow
             };
             // Hash the password
@@ -78,16 +78,16 @@ namespace HaulPointsAPI.Services
             return RegistrationResult.Success;
         }
         // Method to authenticate a user during login
-        public async Task<userLoginResponseDTO> LoginService(string username, string password)
+        public async Task<UserLoginResponseDTO> LoginService(string username, string password)
         { 
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username.ToLower());
 
             if (user == null) // User not found
             {
-                return new userLoginResponseDTO
+                return new UserLoginResponseDTO
                 {
                     Token = string.Empty,
-                    response = LoginResult.UserNotFound.ToString()
+                    Response = LoginResult.UserNotFound.ToString()
                 };
             }
             // Verify the provided password against the stored hash
@@ -100,7 +100,7 @@ namespace HaulPointsAPI.Services
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
                 };
                 var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
                 var signCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -115,19 +115,19 @@ namespace HaulPointsAPI.Services
                 // Serialize the token to a string
                 var userToken = new JwtSecurityTokenHandler().WriteToken(token); 
                 // Return the token in the response DTO
-                return new userLoginResponseDTO
+                return new UserLoginResponseDTO
                 {
                     Token = userToken,
-                    response = LoginResult.Success.ToString()
+                    Response = LoginResult.Success.ToString()
                 };
             }
 
             else // Invalid password
             {
-                return new userLoginResponseDTO
+                return new UserLoginResponseDTO
                 {
                     Token = string.Empty,
-                    response = LoginResult.InvalidPassword.ToString()
+                    Response = LoginResult.InvalidPassword.ToString()
                 };
             }
         }
