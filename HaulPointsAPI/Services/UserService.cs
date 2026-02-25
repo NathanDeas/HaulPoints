@@ -63,7 +63,7 @@ namespace HaulPointsAPI.Services
             {
                 // Normalize username to lowercase
                 Username = rUser.Username.ToLower(),
-                Email = rUser.Email,
+                Email = rUser.Email.ToLower(),
                 Role = RoleEnum.Driver, // Default role
                 CreatedAt = DateTime.UtcNow
             };

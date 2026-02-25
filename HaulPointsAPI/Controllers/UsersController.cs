@@ -25,7 +25,7 @@ namespace HaulPointsAPI.Controllers {
 
         // Get all users endpoint
         //just for testing purposes
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpGet("getusers")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {

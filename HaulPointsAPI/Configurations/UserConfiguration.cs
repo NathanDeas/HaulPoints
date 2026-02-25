@@ -24,28 +24,32 @@ namespace HaulPointsAPI.Configurations
             builder.HasIndex(u => u.Username)
                 .IsUnique();
 
-            builder.Property(e => e.Email)
+            builder.Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(255);
 
-            builder.HasIndex(e => e.Email)
+            builder.HasIndex(u => u.Email)
                 .IsUnique();
 
-            builder.Property(p => p.PasswordHash)
+            builder.Property(u => u.PasswordHash)
                 .IsRequired();
 
-            builder.Property(r => r.Role)
+            builder.Property(u => u.Role)
                 .HasConversion<string>()
                 .HasDefaultValue(RoleEnum.Driver)
                 .IsRequired();
 
-            builder.Property(a => a.Active)
+            builder.Property(u => u.Active)
                 .HasDefaultValue(false);
 
-            builder.HasOne(p => p.Point)
-                .WithOne(u => u.User)
-                .HasForeignKey<Point>(p => p.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(u => u.CreatedAt)
+                .HasDefaultValueSql("datetime('now')")
+                .ValueGeneratedOnAdd();
+
+            builder.HasOne(o => o.Organization)  //Principal
+                .WithMany(u => u.Users) //Dependent
+                .HasForeignKey(u => u.OrganizationId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

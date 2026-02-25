@@ -1,3 +1,5 @@
+using HaulPointsAPI.Configurations;
+
 namespace HaulPointsAPI.Models.Entities
 {
     public enum RoleEnum 
@@ -25,7 +27,7 @@ namespace HaulPointsAPI.Models.Entities
         // Navigation property
         public Organization? Organization { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
         public bool Active { get; set; } = false;
 

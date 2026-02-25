@@ -1,15 +1,12 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using HaulPointsAPI.Configurations;
 
 namespace HaulPointsAPI.Models.Entities
 {
-    [Table("Points")]
     public class Point
     {
-        [Key]
-        public int UserId { get; set; }
-        // Navigation property to the User entity
-        public User User { get; set; }
+        public int UserId { get; set; } 
+
+        public required User User { get; set; }
 
         public int Balance { get; set; }
 
