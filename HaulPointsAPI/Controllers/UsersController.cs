@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HaulPointsAPI.Data;
-using HaulPointsAPI.Models;
+using HaulPointsAPI.Models.Entities;
+using HaulPointsAPI.Models.DTOs;
 using HaulPointsAPI.Services;
 using System;
 using Microsoft.AspNetCore.Authorization;
@@ -54,11 +55,11 @@ namespace HaulPointsAPI.Controllers {
         public async Task<IActionResult> Login([FromBody] LoginUserDTO dto)
         {
             var result = await _service.LoginService(dto.Username, dto.Password);
-            if (result.response == UserService.LoginResult.Success.ToString())
+            if (result.Response == UserService.LoginResult.Success.ToString())
             {
                 return Ok(result);
             }
-            else if (result.response == UserService.LoginResult.UserNotFound.ToString())
+            else if (result.Response == UserService.LoginResult.UserNotFound.ToString())
             {
                 return NotFound("Username not found");
             }

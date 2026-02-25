@@ -62,7 +62,7 @@ builder.Services.AddDbContext<HaulPointsDbContext>(options =>
     options.UseSqlite(connectionString));
 
 // Register PasswordHasher for User model
-builder.Services.AddScoped<IPasswordHasher<HaulPointsAPI.Models.User>, PasswordHasher<HaulPointsAPI.Models.User>>();
+builder.Services.AddScoped<IPasswordHasher<HaulPointsAPI.Models.Entities.User>, PasswordHasher<HaulPointsAPI.Models.Entities.User>>();
 
 // Build the app
 var app = builder.Build();
