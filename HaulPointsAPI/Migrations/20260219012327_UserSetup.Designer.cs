@@ -3,6 +3,7 @@ using System;
 using HaulPointsAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HaulPointsAPI.Migrations
 {
     [DbContext(typeof(HaulPointsDbContext))]
-    partial class HaulPointsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260219012327_UserSetup")]
+    partial class UserSetup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
@@ -23,10 +26,8 @@ namespace HaulPointsAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("date('now')");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -34,7 +35,6 @@ namespace HaulPointsAPI.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LogoUrl")
-                        .HasMaxLength(2000)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -44,10 +44,7 @@ namespace HaulPointsAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Organizations", (string)null);
+                    b.ToTable("Organizations");
                 });
 
             modelBuilder.Entity("HaulPointsAPI.Models.Entities.Point", b =>
@@ -59,13 +56,11 @@ namespace HaulPointsAPI.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("datetime('now')");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Points", (string)null);
+                    b.ToTable("Points");
                 });
 
             modelBuilder.Entity("HaulPointsAPI.Models.Entities.User", b =>
@@ -80,9 +75,7 @@ namespace HaulPointsAPI.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT")
-                        .HasDefaultValueSql("datetime('now')");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -135,8 +128,7 @@ namespace HaulPointsAPI.Migrations
                 {
                     b.HasOne("HaulPointsAPI.Models.Entities.Organization", "Organization")
                         .WithMany("Users")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("OrganizationId");
 
                     b.Navigation("Organization");
                 });
