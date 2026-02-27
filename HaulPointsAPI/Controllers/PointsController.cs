@@ -17,8 +17,8 @@ namespace HaulPointsAPI.Controllers {
             _context = context;
             _service = service;
         }
-        [HttpGet("balance")]
-        public async Task<IActionResult> Balance(int userId)
+        [HttpGet("driver/{userId}/balance")]
+        public async Task<IActionResult> GetBalance(int userId)
         {
             var (Result, Balance) = await _service.GetBalance(userId);
             if(Result == PointService.BalanceResult.DriverNotFound) {
@@ -30,5 +30,42 @@ namespace HaulPointsAPI.Controllers {
             return Ok(new {success = true, balance = Balance});
         }
 
+        [HttpPost("driver/{userId}/addpoints")]
+        public async Task<IActionResult> AddPoints(int userId, int amount)
+        {
+            var (Result, Balance) = await _service.AddPoints(userId, amount);
+            if(Result == PointService.ModifyPointsResult.DriverNotFound) {
+                return NotFound(new {success = false, message = "Driver not found"});
+            }
+            if(Result == PointService.ModifyPointsResult.NotDriver) {
+                return BadRequest(new {success = false, message = "User is not a driver"});
+            }
+            if(Result == PointService.ModifyPointsResult.InvalidAmount) {
+                return BadRequest(new {success = false, message = "Invalid amount"});
+            }
+            if(Result == PointService.ModifyPointsResult.InsufficientFunds) {
+                return BadRequest(new {success = false, message = "Insufficient funds"});
+            }
+            return Ok(new {success = true, balance = Balance});
+        }
+
+        [HttpPost("driver/{userId}/deductpoints")]
+        public async Task<IActionResult> DeductPoints(int userId, int amount)
+        {
+            var (Result, Balance) = await _service.DeductPoints(userId, amount);
+            if(Result == PointService.ModifyPointsResult.DriverNotFound) {
+                return NotFound(new {success = false, message = "Driver not found"});
+            }
+            if(Result == PointService.ModifyPointsResult.NotDriver) {
+                return BadRequest(new {success = false, message = "User is not a driver"});
+            }
+            if(Result == PointService.ModifyPointsResult.InvalidAmount) {
+                return BadRequest(new {success = false, message = "Invalid amount"});
+            }
+            if(Result == PointService.ModifyPointsResult.InsufficientFunds) {
+                return BadRequest(new {success = false, message = "Insufficient funds"});
+            }
+            return Ok(new {success = true, balance = Balance});
+        }
      }
 }
