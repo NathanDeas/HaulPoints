@@ -21,6 +21,7 @@ builder.Services.AddControllers();
 
 // Register UserService for dependency injection
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<PointService>();
 
 
 // Configure CORS to allow requests from React app
