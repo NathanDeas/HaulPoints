@@ -13,18 +13,12 @@ namespace HaulPointsAPI.Services
         {
             _context = context;
         }
-        public enum BalanceResult {
+        public enum PointsResult {
             Success,
-            DriverNotFound,
-            NotDriver
-        }
-
-        public enum ModifyPointsResult {
-            Success,
+            UserNotFound,
+            NotDriver,
             InsufficientFunds,
-            InvalidAmount,
-            DriverNotFound,
-            NotDriver
+            InvalidAmount
         }
 
         // Method to create a points record for a user if it doesn't exist
@@ -42,14 +36,14 @@ namespace HaulPointsAPI.Services
         }
 
         // Method to get the balance of points for a user
-        public async Task<(BalanceResult Result, int? Balance)> GetBalance(int userId) {
+        public async Task<(PointsResult Result, int? Balance)> GetBalance(int userId) {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
             if(user == null) {
-                return(Result: BalanceResult.DriverNotFound, Balance: null);
+                return(Result: PointsResult.UserNotFound, Balance: null);
             }
             // Only drivers have points, so if the user is not a driver, return NotDriver
             if(user.Role != RoleEnum.Driver) {
-                return(Result: BalanceResult.NotDriver, Balance: null);
+                return(Result: PointsResult.NotDriver, Balance: null);
             }
             var points = await _context.Points.SingleOrDefaultAsync(p => p.UserId == userId);
             // If the points record doesn't exist, create it with a balance of 0
@@ -57,25 +51,25 @@ namespace HaulPointsAPI.Services
             {
                 points = await CreatePointsRecord(userId);
             }
-            return(Result: BalanceResult.Success, Balance: points.Balance);
+            return(Result: PointsResult.Success, Balance: points.Balance);
         }
 
         // Method to add points to a user's balance
-        public async Task<(ModifyPointsResult Result, int? Balance)> AddPoints(int userId, int amount)
+        public async Task<(PointsResult Result, int? Balance)> AddPoints(int userId, int amount)
         {
             // Validate the amount to prevent overflow and ensure it's positive
             if(amount > 100000 || amount <= 0) {
-                return(Result: ModifyPointsResult.InvalidAmount, Balance: null);
+                return(Result: PointsResult.InvalidAmount, Balance: null);
             }
             
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
             // Check if the user exists
             if(user == null) {
-                return(Result: ModifyPointsResult.DriverNotFound, Balance: null);
+                return(Result: PointsResult.UserNotFound, Balance: null);
             }
             // Only drivers have points, so if the user is not a driver, return NotDriver
             if(user.Role != RoleEnum.Driver) {
-                return(Result: ModifyPointsResult.NotDriver, Balance: null);
+                return(Result: PointsResult.NotDriver, Balance: null);
             }
 
 
@@ -89,7 +83,7 @@ namespace HaulPointsAPI.Services
 
             // Check for potential overflow before adding points
             if(points.Balance > int.MaxValue - amount) {
-                return(Result: ModifyPointsResult.InvalidAmount, Balance: null);
+                return(Result: PointsResult.InvalidAmount, Balance: null);
             }
             // Add points and update the balance
             points.Balance += amount;
@@ -98,25 +92,25 @@ namespace HaulPointsAPI.Services
             // Save changes to the database
             await _context.SaveChangesAsync();
             // Return the new balance after adding points
-            return(Result: ModifyPointsResult.Success, Balance: points.Balance);
+            return(Result: PointsResult.Success, Balance: points.Balance);
         }
 
         // Method to deduct points from a user's balance
-        public async Task<(ModifyPointsResult Result, int? Balance)> DeductPoints(int userId, int amount)
+        public async Task<(PointsResult Result, int? Balance)> DeductPoints(int userId, int amount)
         {
             // Validate the amount to prevent overflow and ensure it's positive
             if(amount > 100000 || amount <= 0) {
-                return(Result: ModifyPointsResult.InvalidAmount, Balance: null);
+                return(Result: PointsResult.InvalidAmount, Balance: null);
             }
             
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
             // Check if the user exists
             if(user == null) {
-                return(Result: ModifyPointsResult.DriverNotFound, Balance: null);
+                return(Result: PointsResult.UserNotFound, Balance: null);
             }
             // Only drivers have points, so if the user is not a driver, return NotDriver
             if(user.Role != RoleEnum.Driver) {
-                return(Result: ModifyPointsResult.NotDriver, Balance: null);
+                return(Result: PointsResult.NotDriver, Balance: null);
             }
 
             var points = await _context.Points.SingleOrDefaultAsync(p => p.UserId == userId);
@@ -125,12 +119,12 @@ namespace HaulPointsAPI.Services
             if(points == null)
             {
                 points = await CreatePointsRecord(userId);
-                return(Result: ModifyPointsResult.InsufficientFunds, Balance: points.Balance);
+                return(Result: PointsResult.InsufficientFunds, Balance: points.Balance);
             }
 
             // Check for negative balance after deduction to prevent overdraft
             if(amount > points.Balance) {
-                return(Result: ModifyPointsResult.InsufficientFunds, Balance: points.Balance);
+                return(Result: PointsResult.InsufficientFunds, Balance: points.Balance);
             }
             // Deduct points and update the balance
             points.Balance -= amount;
@@ -139,7 +133,7 @@ namespace HaulPointsAPI.Services
             // Save changes to the database
             await _context.SaveChangesAsync();
             // Return the new balance after deducting points
-            return(Result: ModifyPointsResult.Success, Balance: points.Balance);
+            return(Result: PointsResult.Success, Balance: points.Balance);
         }
     }
 }

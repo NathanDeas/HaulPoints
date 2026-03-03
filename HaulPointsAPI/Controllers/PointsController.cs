@@ -21,10 +21,10 @@ namespace HaulPointsAPI.Controllers {
         public async Task<IActionResult> GetBalance(int userId)
         {
             var (Result, Balance) = await _service.GetBalance(userId);
-            if(Result == PointService.BalanceResult.DriverNotFound) {
-                return NotFound(new {success = false, message = "Driver not found"});
+            if(Result == PointService.PointsResult.UserNotFound) {
+                return NotFound(new {success = false, message = "User not found"});
             }
-            if(Result == PointService.BalanceResult.NotDriver) {
+            if(Result == PointService.PointsResult.NotDriver) {
                 return BadRequest(new {success = false, message = "User is not a driver"});
             }
             return Ok(new {success = true, balance = Balance});
@@ -34,16 +34,16 @@ namespace HaulPointsAPI.Controllers {
         public async Task<IActionResult> AddPoints(int userId, int amount)
         {
             var (Result, Balance) = await _service.AddPoints(userId, amount);
-            if(Result == PointService.ModifyPointsResult.DriverNotFound) {
-                return NotFound(new {success = false, message = "Driver not found"});
+            if(Result == PointService.PointsResult.UserNotFound) {
+                return NotFound(new {success = false, message = "User not found"});
             }
-            if(Result == PointService.ModifyPointsResult.NotDriver) {
+            if(Result == PointService.PointsResult.NotDriver) {
                 return BadRequest(new {success = false, message = "User is not a driver"});
             }
-            if(Result == PointService.ModifyPointsResult.InvalidAmount) {
+            if(Result == PointService.PointsResult.InvalidAmount) {
                 return BadRequest(new {success = false, message = "Invalid amount"});
             }
-            if(Result == PointService.ModifyPointsResult.InsufficientFunds) {
+            if(Result == PointService.PointsResult.InsufficientFunds) {
                 return BadRequest(new {success = false, message = "Insufficient funds"});
             }
             return Ok(new {success = true, balance = Balance});
@@ -53,16 +53,16 @@ namespace HaulPointsAPI.Controllers {
         public async Task<IActionResult> DeductPoints(int userId, int amount)
         {
             var (Result, Balance) = await _service.DeductPoints(userId, amount);
-            if(Result == PointService.ModifyPointsResult.DriverNotFound) {
-                return NotFound(new {success = false, message = "Driver not found"});
+            if(Result == PointService.PointsResult.UserNotFound) {
+                return NotFound(new {success = false, message = "User not found"});
             }
-            if(Result == PointService.ModifyPointsResult.NotDriver) {
+            if(Result == PointService.PointsResult.NotDriver) {
                 return BadRequest(new {success = false, message = "User is not a driver"});
             }
-            if(Result == PointService.ModifyPointsResult.InvalidAmount) {
+            if(Result == PointService.PointsResult.InvalidAmount) {
                 return BadRequest(new {success = false, message = "Invalid amount"});
             }
-            if(Result == PointService.ModifyPointsResult.InsufficientFunds) {
+            if(Result == PointService.PointsResult.InsufficientFunds) {
                 return BadRequest(new {success = false, message = "Insufficient funds"});
             }
             return Ok(new {success = true, balance = Balance});
