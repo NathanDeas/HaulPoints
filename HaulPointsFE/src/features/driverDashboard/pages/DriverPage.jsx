@@ -1,24 +1,42 @@
-import DashboardLayout from "../../../layouts/DashboardLayout.jsx"
-import '../css/DriverPage.css'
+import DashboardLayout from "../../../layouts/DashboardLayout.jsx";
+import '../css/DriverPage.css';
+import { GetDriverBalance } from "../api/DriverDashApi";
+import { useState, useEffect } from "react";
+
 
 function DriverPage() {
     const token = localStorage.getItem("token");
-    // console.log(token);
     const claims = JSON.parse(atob(token.split('.')[1]));
-    console.log(claims)
     const role = claims["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
     const name = claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
     const id = claims["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"]
-    console.log(role)
-    console.log(name)
-    console.log(id)
+    const [Balance, setBalance] = useState(0);
+
+    useEffect(() => {
+        const fetchBalance = async () => {
+            try {
+                const response = await GetDriverBalance(id); 
+                if (!response.success)
+                {
+                    console.warn(response.message)
+                    return;
+                }
+                setBalance(response.balance)
+
+
+            } catch (error) {
+                console.error("Error fetching driver balance:", error);
+            }
+        };
+
+        fetchBalance();
+    }, [id]);
+
+
+
     const driverInfo = [
-        {id: 1, type: "hero-container", role: role, name: name, userid: id},
-        {id:2, type: "content-placeholder", role: role, name: name, userid: id},
-        {id:3, type: "content-placeholder tall", role: role, name: name, userid: id},
-        {id:3, type: "content-placeholder tall", role: role, name: name, userid: id},
-        {id:2, type: "content-placeholder", role: role, name: name, userid: id},
-        {id:4, type: "content-placeholder two", role: role, name: name, userid: id}
+        {id: 1, type: "hero-container", role: role, name: name, userid: id, balance: Balance},
+
     ]
 
     return (

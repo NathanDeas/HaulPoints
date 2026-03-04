@@ -6,6 +6,7 @@ function DashboardLayout({ userInfo }) {
     const dashcontent = userInfo.map(content =>
         <div className={content.type} key={content.id}>
             <span>{content.role}</span>
+            <span>{content.balance}</span>
         </div>
     );
     return(
