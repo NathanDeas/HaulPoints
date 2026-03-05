@@ -29,9 +29,7 @@
     background-color: hsl(0, 0%, 90%);
 }
 
-.hero-container {
-    grid-column: 1 / -1;
-}
+
 .content-placeholder {
     grid: span 1;
 }
