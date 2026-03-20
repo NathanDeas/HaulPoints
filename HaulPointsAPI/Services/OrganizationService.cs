@@ -17,6 +17,12 @@ namespace HaulPointsAPI.Services
         Success,
         Failed
     }
+    public enum AssignDriverToOrganizationResult {
+        DriverNotFound,
+        OrganizationNotFound,
+        UserAlreadyInOrganization,
+        Success
+    }
     public class OrganizationService
     {
         private readonly HaulPointsDbContext _context;
@@ -53,6 +59,25 @@ namespace HaulPointsAPI.Services
                 return(Result: newOrgResult.Failed, Org: null);
             }
             return(Result: newOrgResult.Success, Org: org);
+        }
+        public async Task<AssignDriverToOrganizationResult> AddDriverToOrganization(int userId, int organizationId)
+        {
+            var driver = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if(driver == null)
+            {
+                return AssignDriverToOrganizationResult.DriverNotFound;
+            }
+            if(driver.OrganizationId != null) 
+            {
+                return AssignDriverToOrganizationResult.UserAlreadyInOrganization;
+            }
+            if(await _context.Organizations.FirstOrDefaultAsync(o => o.Id == organizationId) == null)
+            {
+                return AssignDriverToOrganizationResult.OrganizationNotFound;
+            }
+            driver.OrganizationId = organizationId;
+            await _context.SaveChangesAsync();
+            return AssignDriverToOrganizationResult.Success;
         }
     }
 }

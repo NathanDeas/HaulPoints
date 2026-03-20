@@ -38,6 +38,25 @@ namespace HaulPointsAPI.Controllers {
             }
             return Created("", new {Result = newOrganization.Result, Info = newOrganization.Org});
         }
+        [HttpPatch("adddriver/{driverId}/toorg/{organizationId}")]
+        public async Task<IActionResult> AddDriverToOrganization(int driverId, int organizationId)
+        {
+            var addDriver = await _service.AddDriverToOrganization(driverId, organizationId);
+            if(addDriver == AssignDriverToOrganizationResult.OrganizationNotFound)
+            {
+                return NotFound("Organization Not Found");
+
+            }
+            if(addDriver == AssignDriverToOrganizationResult.DriverNotFound)
+            {
+                return NotFound("Driver Not Found");
+            }
+            if(addDriver == AssignDriverToOrganizationResult.UserAlreadyInOrganization)
+            {
+                return BadRequest("Driver already belongs to organization");
+            }
+            return Ok("Success");
+        }
     }
 
 }
