@@ -37,7 +37,7 @@ namespace HaulPointsAPI.Services
 
         // Method to get the balance of points for a user
         public async Task<(PointsResult Result, int? Balance)> GetBalance(int userId) {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == userId);
             if(user == null) {
                 return(Result: PointsResult.UserNotFound, Balance: null);
             }
@@ -62,7 +62,7 @@ namespace HaulPointsAPI.Services
                 return(Result: PointsResult.InvalidAmount, Balance: null);
             }
             
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == userId);
             // Check if the user exists
             if(user == null) {
                 return(Result: PointsResult.UserNotFound, Balance: null);
@@ -103,7 +103,7 @@ namespace HaulPointsAPI.Services
                 return(Result: PointsResult.InvalidAmount, Balance: null);
             }
             
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserId == userId);
             // Check if the user exists
             if(user == null) {
                 return(Result: PointsResult.UserNotFound, Balance: null);

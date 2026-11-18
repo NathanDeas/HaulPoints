@@ -98,7 +98,7 @@ namespace HaulPointsAPI.Services
                 // Generate JWT token upon successful login
                 var claims = new[]         
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                     new Claim(ClaimTypes.Name, user.Username),
                     new Claim(ClaimTypes.Role, user.Role.ToString())
                 };

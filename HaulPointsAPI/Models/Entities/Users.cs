@@ -11,7 +11,8 @@ namespace HaulPointsAPI.Models.Entities
 
     public class User
     {
-        public int Id { get; set; }
+        // Primary Key
+        public int UserId { get; set; }
 
         public string Username {get; set; } = string.Empty;
 
@@ -21,7 +22,7 @@ namespace HaulPointsAPI.Models.Entities
         
         public RoleEnum Role { get; set; } = RoleEnum.Driver;
         
-        // Nullable foreign key
+        // Foreign key
         public int? OrganizationId {get; set; }
 
         // Navigation property
@@ -32,5 +33,7 @@ namespace HaulPointsAPI.Models.Entities
         public bool Active { get; set; } = false;
 
         public Point? Point { get; set; }
+
+        public ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
 }

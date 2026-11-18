@@ -62,7 +62,7 @@ namespace HaulPointsAPI.Services
         }
         public async Task<AssignDriverToOrganizationResult> AddDriverToOrganization(int userId, int organizationId)
         {
-            var driver = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            var driver = await _context.Users.FirstOrDefaultAsync(u => u.UserId == userId);
             if(driver == null)
             {
                 return AssignDriverToOrganizationResult.DriverNotFound;
@@ -71,7 +71,7 @@ namespace HaulPointsAPI.Services
             {
                 return AssignDriverToOrganizationResult.UserAlreadyInOrganization;
             }
-            if(await _context.Organizations.FirstOrDefaultAsync(o => o.Id == organizationId) == null)
+            if(await _context.Organizations.FirstOrDefaultAsync(o => o.OrganizationId == organizationId) == null)
             {
                 return AssignDriverToOrganizationResult.OrganizationNotFound;
             }

@@ -10,8 +10,8 @@ namespace HaulPointsAPI.Configurations
         {
             builder.ToTable("Organizations");
 
-            builder.HasKey(o => o.Id);
-            builder.Property(o => o.Id) 
+            builder.HasKey(o => o.OrganizationId);
+            builder.Property(o => o.OrganizationId) 
                 .ValueGeneratedOnAdd();
 
             builder.Property(o => o.Name)
@@ -28,7 +28,7 @@ namespace HaulPointsAPI.Configurations
                 .HasMaxLength(2000);
 
             builder.Property(o => o.CreatedAt)
-                .HasDefaultValueSql("date('now')")
+                .HasDefaultValueSql("datetime('now')")
                 .ValueGeneratedOnAdd()
                 .IsRequired();
         }

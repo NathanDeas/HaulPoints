@@ -4,8 +4,8 @@ namespace HaulPointsAPI.Models.Entities
 {
     public class Organization
     {
-
-        public int Id { get; set; }
+        // Primary Key
+        public int OrganizationId { get; set; }
 
         public string Name {get; set; } = string.Empty;
 
@@ -13,8 +13,11 @@ namespace HaulPointsAPI.Models.Entities
 
         public string? LogoUrl { get; set; }
         
-        public DateOnly CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
+        // Navigation Properties 
         public ICollection<User> Users { get; set; } = new List<User>();
+        public ICollection<Reward> Rewards { get; set; } = new List<Reward>();
+        public ICollection<Incentive> Incentives { get; set; } = new List<Incentive>();
     }
 }

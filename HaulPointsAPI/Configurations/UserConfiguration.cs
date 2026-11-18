@@ -12,9 +12,9 @@ namespace HaulPointsAPI.Configurations
             builder
                 .ToTable("Users");
 
-            builder.HasKey(u => u.Id);
+            builder.HasKey(u => u.UserId);
 
-            builder.Property(u => u.Id)
+            builder.Property(u => u.UserId)
                 .ValueGeneratedOnAdd();
 
             builder.Property(u => u.Username)

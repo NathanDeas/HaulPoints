@@ -17,16 +17,58 @@ namespace HaulPointsAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
 
-            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Organization", b =>
+            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Incentive", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IncentiveID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("CreatedAt")
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("OrganizationID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PointsAwarded")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("TargetValue")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IncentiveID");
+
+                    b.HasIndex("OrganizationID");
+
+                    b.ToTable("Incentive");
+                });
+
+            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Organization", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValueSql("date('now')");
+                        .HasDefaultValueSql("datetime('now')");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -42,7 +84,7 @@ namespace HaulPointsAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -68,9 +110,85 @@ namespace HaulPointsAPI.Migrations
                     b.ToTable("Points", (string)null);
                 });
 
+            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Reward", b =>
+                {
+                    b.Property<int>("RewardID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("OrganizationID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PointCost")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductImage")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("RewardID");
+
+                    b.HasIndex("OrganizationID");
+
+                    b.ToTable("Reward");
+                });
+
+            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Transaction", b =>
+                {
+                    b.Property<int>("TransactionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("IncentiveID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("OrganizationID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PointChange")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Reason")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("RewardID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TransactionID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Transaction");
+                });
+
             modelBuilder.Entity("HaulPointsAPI.Models.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -107,7 +225,7 @@ namespace HaulPointsAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -120,11 +238,40 @@ namespace HaulPointsAPI.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Incentive", b =>
+                {
+                    b.HasOne("HaulPointsAPI.Models.Entities.Organization", "Organization")
+                        .WithMany("Incentives")
+                        .HasForeignKey("OrganizationID");
+
+                    b.Navigation("Organization");
+                });
+
             modelBuilder.Entity("HaulPointsAPI.Models.Entities.Point", b =>
                 {
                     b.HasOne("HaulPointsAPI.Models.Entities.User", "User")
                         .WithOne("Point")
                         .HasForeignKey("HaulPointsAPI.Models.Entities.Point", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Reward", b =>
+                {
+                    b.HasOne("HaulPointsAPI.Models.Entities.Organization", "Organization")
+                        .WithMany("Rewards")
+                        .HasForeignKey("OrganizationID");
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("HaulPointsAPI.Models.Entities.Transaction", b =>
+                {
+                    b.HasOne("HaulPointsAPI.Models.Entities.User", "User")
+                        .WithMany("Transactions")
+                        .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -143,12 +290,18 @@ namespace HaulPointsAPI.Migrations
 
             modelBuilder.Entity("HaulPointsAPI.Models.Entities.Organization", b =>
                 {
+                    b.Navigation("Incentives");
+
+                    b.Navigation("Rewards");
+
                     b.Navigation("Users");
                 });
 
             modelBuilder.Entity("HaulPointsAPI.Models.Entities.User", b =>
                 {
                     b.Navigation("Point");
+
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }
